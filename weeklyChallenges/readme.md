@@ -4,8 +4,9 @@
 A continuación describiré de qué se trata cada desafío a medida que los vaya subiendo 🤓
 <p>
 </p>
-##class02Challenge: "Clases con ECMAScript y ECMAScript avanzado"
-
+## class02Challenge: "Clases con ECMAScript y ECMAScript avanzado"
+<p>
+</p>
 <p>✔️ Se creará una instancia de la clase “ProductManager”</p>
 <p>✔️ Se llamará “getProducts” recién creada la instancia, debe devolver un arreglo vacío []</p>
 <p>✔️ Se llamará al método “addProduct” con los campos:</p>
@@ -20,4 +21,4 @@ A continuación describiré de qué se trata cada desafío a medida que los vaya
 <p>✔️ Se llamará al método “addProduct” con los mismos campos de arriba, debe arrojar un error porque el código estará repetido.</p>
 <p>✔️ Se evaluará que getProductById devuelva error si no encuentra el producto o el producto en caso de encontrarlo</p>
 
-#❗Para ver el código de cada desafío revisa la carpeta que tiene el mismo nombre que el título.
+###❗Para ver el código de cada desafío revisa la carpeta que tiene el mismo nombre que el título.
