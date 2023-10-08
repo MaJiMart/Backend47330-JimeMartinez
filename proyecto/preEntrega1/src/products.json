@@ -1,0 +1,14 @@
+[
+	{
+		"id": "f1c55fd659",
+		"title": "producto prueba 1",
+		"description": "Este es el cuarto producto prueba",
+		"code": "xyz123",
+		"price": 500,
+        "status": true,
+		"stock": 5,
+        "category": "",
+		"thumbnail": "Sin imagen"
+
+	}
+]
