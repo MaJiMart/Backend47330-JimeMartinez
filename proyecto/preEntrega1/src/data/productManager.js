@@ -1,4 +1,3 @@
-import fs from 'fs';
 import { getJSONFromFile, saveJSONToFile, generateID } from '../utilities.js';
 
 class ProductsManager {
@@ -7,13 +6,29 @@ class ProductsManager {
 }
 
 async createProduct(product) {
-    const { title, description, code, price, status, stock, category, thumbnail } = product;
-    if (!title || !description || !code || !price || !status || !stock || !category || !thumbnail){
+    const { title, description, code, price, status, stock, category, thumbnail} = product;
+
+    const productStatus = status !== undefined ? status : true;
+
+    const productThumbnail = thumbnail !== undefined ? thumbnail : [];
+
+    if (!title || !description || !code || !price || !stock || !category ){
         throw new Error ('Por favor, complete todos los campos.')
     }
     const products = await getJSONFromFile(this.path);
-    const id = generateID()    
-    const newProduct = { id, title, description, code, price, status, stock, category, thumbnail };
+    const id = generateID();
+
+    const newProduct = { 
+        id,
+        title,
+        description,
+        code,
+        price,
+        status:productStatus,
+        stock,
+        category,
+        thumbnail:productThumbnail
+    };
     products.push(newProduct);
     
     return saveJSONToFile(this.path, products)
@@ -40,7 +55,7 @@ async updateProduct(id, updatedProduct) {
         throw new Error(`No se encontró el producto con el ID ${id}`);
     }
 
-    products[index] = updatedProduct;
+    products[index] = { id, ...updatedProduct };
 
     await saveJSONToFile(this.path, products);
 }
@@ -58,41 +73,5 @@ async deleteProduct(id) {
     await saveJSONToFile(this.path, products);
 }
 }
-
-//Utilities
-/* const fileExist = async (path) => {
-    try {
-        await fs.promises.access(path);
-        return true;
-    } catch (error) {
-        return false
-    }
-}; */
-
-/* const getJSONFromFile = async (path) => {
-    if(!await fileExist(path)){
-        return [];
-    }
-    let content;
-    try {
-        content = await fs.promises.readFile(path, 'utf-8');    
-    } catch (error) {
-        throw new Error(`El archivo ${path} no pudo ser leído.`);
-    }
-    try {
-        return JSON.parse(content);
-    } catch (error) {
-        throw new Error(`El archivo ${path} no tiene un formato válido.`);
-    }
-}; */
-
-/* const saveJSONToFile = async (path, data) => {
-    const content = JSON.stringify(data, null, '\t')
-    try {
-        await fs.promises.writeFile(path, content, 'utf-8');
-    } catch (error) {
-        throw new Error (`El archivo ${path} no pudo ser escrito`);
-    }
-}; */
 
 export default ProductsManager;

@@ -1,4 +1,6 @@
-export const fileExist = async (path) => {
+import fs from 'fs';
+
+const fileExist = async (path) => {
     try {
         await fs.promises.access(path);
         return true;
@@ -7,7 +9,7 @@ export const fileExist = async (path) => {
     }
 };
 
- export const getJSONFromFile = async (path) => {
+export const getJSONFromFile = async (path) => {
     if(!await fileExist(path)){
         return [];
     }
@@ -42,3 +44,11 @@ export function generateID(){
     })
     return id
 };
+
+/* export const validateProduct = (title, description, code, price, stock, category) => {
+    let result = true;
+    if (!title || !description || !code || !price || !stock || !category ){
+        result = false;
+    }
+    return result;
+} */
