@@ -44,11 +44,3 @@ export function generateID(){
     })
     return id
 };
-
-/* export const validateProduct = (title, description, code, price, stock, category) => {
-    let result = true;
-    if (!title || !description || !code || !price || !stock || !category ){
-        result = false;
-    }
-    return result;
-} */

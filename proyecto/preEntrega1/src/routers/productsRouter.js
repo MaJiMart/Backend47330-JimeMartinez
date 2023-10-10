@@ -1,5 +1,5 @@
-import { Router } from "express";
-import ProductsManager from "../data/productManager.js";
+import { Router } from 'express';
+import ProductsManager from '../data/productManager.js';
 
 const productsRouter = Router();
 
@@ -17,8 +17,12 @@ productsRouter.get('/products', async (req, res) => {
 
 productsRouter.get('/products/:pid', async (req, res) =>{
     let pid = req.params.pid;
-    let product = await productManager.getProductById(pid);
-    res.status(200).json(product)
+    try {
+        let product = await productManager.getProductById(pid);
+        res.status(200).json(product)
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
 });
 
 productsRouter.post('/products', async (req, res) =>{
