@@ -1,0 +1,104 @@
+[
+	{
+		"id": "f1c55fd896",
+		"title": "Producto prueba 2",
+		"description": "Este es el segundo producto prueba",
+		"code": "xyf123",
+		"price": 500,
+		"status": true,
+		"stock": 5,
+		"category": "Comida",
+		"thumbnail": "Sin imagen"
+	},
+	{
+		"id": "0a116b2471",
+		"title": "Producto prueba desde Postman",
+		"description": "Este es un producto prueba creado desde Postman",
+		"code": "xyz199",
+		"price": 500,
+		"stock": 5,
+		"category": "Otro"
+	},
+	{
+		"id": "4de471e1f3",
+		"title": "Producto prueba desde Postman",
+		"description": "Este es un producto prueba creado desde Postman",
+		"code": "xyz199",
+		"price": 500,
+		"stock": 5,
+		"category": "Otro"
+	},
+	{
+		"id": "40b8b4ae29",
+		"title": "Producto prueba desde Postman",
+		"description": "Este es un producto prueba creado desde Postman",
+		"code": "xyz199",
+		"price": 500,
+		"status": false,
+		"stock": 5,
+		"category": "Otro"
+	},
+	{
+		"id": "3402771ab9",
+		"title": "Producto prueba desde Postman",
+		"description": "Este es un producto prueba creado desde Postman",
+		"code": "xyz199",
+		"price": 500,
+		"status": true,
+		"stock": 5,
+		"category": "Otro",
+		"thumbnail": []
+	},
+	{
+		"id": "8d888d0d85",
+		"title": "Producto prueba desde Postman",
+		"description": "Este es un producto prueba creado desde Postman",
+		"code": "xyz199",
+		"price": 500,
+		"status": true,
+		"stock": 5,
+		"category": "Otro",
+		"thumbnail": []
+	},
+	{
+		"id": "86894ebcfd",
+		"title": "Producto prueba desde Postman",
+		"description": "Este es un producto prueba creado desde Postman intento 9999",
+		"code": "xyz199",
+		"price": 500,
+		"status": false,
+		"stock": 5,
+		"category": "Otro"
+	},
+	{
+		"id": "ffed375c8e",
+		"title": "Producto prueba desde Postman",
+		"description": "Este es un producto prueba creado desde Postman intento 9999",
+		"code": "xyz199",
+		"price": 500,
+		"status": false,
+		"stock": 5,
+		"category": "Otro"
+	},
+	{
+		"id": "bd9d7b090d",
+		"title": "Producto prueba desde Postman",
+		"description": "Este es un producto prueba creado desde Postman intento 9999",
+		"code": "xyz199",
+		"price": 500,
+		"status": false,
+		"stock": 5,
+		"category": "Otro"
+	},
+	{
+		"id": "af8fee44a5",
+		"title": "nuevo prod",
+		"description": "prueba 2468463",
+		"code": "xyz199",
+		"price": 500,
+		"status": true,
+		"stock": 5,
+		"category": "Otro",
+		"thumbnail": []
+	}
+]

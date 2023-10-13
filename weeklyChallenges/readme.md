@@ -55,5 +55,26 @@ _❗Para ver el código de cada desafío revisa la carpeta que tiene el mismo no
 <p>✔️Se mandará a llamar desde el navegador a la url http://localhost:8080/products?limit=5 , eso debe devolver sólo los primeros 5 de los 10 productos.</p>
 <p>✔️Se mandará a llamar desde el navegador a la url http://localhost:8080/products/2, eso debe devolver sólo el producto con id=2.</p>
 <p>✔️Se mandará a llamar desde el navegador a la url http://localhost:8080/products/34123123, al no existir el id del producto, debe devolver un objeto con un error indicando que el producto no existe.
+</p>
+<p>⚙️ Dependencias:</p>
+    <p>express: "4.18.2"
+
+</p>
+
+## 📌class10Challenge: "Websockets and Handlebars"
+
+<p>✔️Se instalará y correrá el servidor en el puerto indicado.</p>
+    <p>El servidor debe levantarse sin problema.</p>
+<p>✔️Se abrirá la ruta raíz:</p>
+    <p>Debe visualizarse el contenido de la vista index.handlebars</p>
+    <p>No se debe activar el websocket aún.</p>
+<p>✔️Se buscará en la url del navegador la ruta “/realtimeproducts”.</p>
+    <p>Se corroborará que el servidor haya conectado con el cliente, en la consola del servidor deberá mostrarse un mensaje de “cliente conectado”.</p>
+    <p>Se debe mostrar la lista de productos y se corroborará que se esté enviando desde websocket.
+</p>
+<p>⚙️ Dependencias:</p>
+    <p>express: "4.18.2"</p>
+    <p>express-handlebars: "^7.1.2"</p>
+    <p>socket.io: "^4.7.2"
 
 </p>
