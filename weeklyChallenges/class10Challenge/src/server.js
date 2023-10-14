@@ -12,4 +12,8 @@ serverHttp.listen(PORT, ()=>{console.log(`Server running on http://localhost:${P
 
 serverSocket.on('connection', (socketClient)=>{
     console.log(`Se ha conectado un nuevo cliente con id ${socketClient.id}`);
+
+    socketClient.on('disconnect', () =>{
+        console.log(`Se ha desconectado el cliente con id ${socketClient.id}`);
+    })
 })

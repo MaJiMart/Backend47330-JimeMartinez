@@ -2,7 +2,7 @@
   "name": "class10challenge",
   "version": "1.0.0",
   "description": "Desafío entregable clase 10",
-  "main": "src/app.js",
+  "main": "src/server.js",
   "type": "module",
   "scripts": {
     "start": "node .",
