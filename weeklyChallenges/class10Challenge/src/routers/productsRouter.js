@@ -1,6 +1,8 @@
 import { Router } from 'express';
 import ProductsManager from '../data/productManager.js';
 
+
+
 const productsRouter = Router();
 
 const productManager = new ProductsManager('src/products.json');
@@ -55,5 +57,9 @@ productsRouter.delete('/products/:pid', async (req, res) => {
         res.status(400).json({ error: error.message });
     }
 });
+
+
+
+
 
 export default productsRouter;

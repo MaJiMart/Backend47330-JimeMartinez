@@ -100,5 +100,49 @@
 		"stock": 5,
 		"category": "Otro",
 		"thumbnail": []
+	},
+	{
+		"id": "e38c47cf22",
+		"title": "Prod desde Form 3",
+		"description": "Intento 3 de agregar producto desde formulario ",
+		"code": "sds939",
+		"price": "389",
+		"status": true,
+		"stock": "96",
+		"category": "Ilusión ",
+		"thumbnail": []
+	},
+	{
+		"id": "08323fc578",
+		"title": "Prod desde Form 4",
+		"description": "Intento 4 de agregar producto desde formulario ",
+		"code": "sds939",
+		"price": "256",
+		"status": true,
+		"stock": "25",
+		"category": "Ilusión ",
+		"thumbnail": []
+	},
+	{
+		"id": "72ab56cc67",
+		"title": "Prod desde Form 34",
+		"description": "Intento 500000 en realTime",
+		"code": "sds939",
+		"price": "36",
+		"status": true,
+		"stock": "21",
+		"category": "Ilusión ",
+		"thumbnail": []
+	},
+	{
+		"id": "a5bba3b293",
+		"title": "Prod desde Form 34",
+		"description": "Intento 4 de agregar producto desde formulario ",
+		"code": "ewe323",
+		"price": "36",
+		"status": true,
+		"stock": "65",
+		"category": "Food",
+		"thumbnail": []
 	}
 ]

@@ -6,7 +6,7 @@ indexRouter.get ('/', (req, res) => {
     const user ={
         name: 'Juanito'
     }
-    res.render('index', user)
+    res.render('home', user)
 })
 
 
