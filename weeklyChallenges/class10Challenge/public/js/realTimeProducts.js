@@ -1,7 +1,9 @@
 (function (){
     const socket = io();
-    
-    document.getElementById('addprod').addEventListener('submit', (event) => {
+
+    let formadd = document.getElementById('addprod')
+
+    formadd.addEventListener('submit', (event) => {
         event.preventDefault();
         
         const newProduct = {
@@ -13,32 +15,24 @@
             category: document.getElementById('catprod').value
         };
     
-        fetch('/api/products', {
-            method: 'POST',
-            body: JSON.stringify(newProduct)
-        })
-        .then(response => response.json())
-        .catch(error => console.error('Error al agregar el producto:', error));
+        socket.emit('addProduct', newProduct)
+        formadd.reset();
     });
 
-    document.getElementById('deleteprod').addEventListener('submit', (event) => {
+    let formdelete = document.getElementById('deleteprod');
+    let inputid = document.getElementById('idprod')
+
+    formdelete.addEventListener('submit', (event) => {
         event.preventDefault();
         
-        const productId = document.getElementById('idprod').value;
-
-        fetch(`/api/products/${productId}`, {
-            method: 'DELETE'
-        })
-        .then(response => response.json())
-        .catch(error => console.error('Error al eliminar el producto:', error));
+        const productId = inputid.value;
+        socket.emit('deleteProduct', productId)
+        formdelete.reset();
     });
 
-
-    fetch('api/products')
-    .then(response => response.json())
-    .then(products => {
+        socket.on('listProducts', (products)=>{
             const divProducts = document.getElementById('divRealTimeProd');
-            
+            divProducts.innerText='';
             products.forEach(product => {
                 const productElement = document.createElement('div');
                 productElement.innerHTML = `
@@ -50,10 +44,7 @@
                 `;
                 divProducts.appendChild(productElement);
             });
-            socket.on('productAdded', products)
         })
-        .catch(error => console.error('Error al obtener los productos:', error));
-
 })();
 
 console.log('Hola desde el realTimeProducts.js');

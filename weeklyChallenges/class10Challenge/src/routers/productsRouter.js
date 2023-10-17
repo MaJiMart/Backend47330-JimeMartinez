@@ -58,8 +58,4 @@ productsRouter.delete('/products/:pid', async (req, res) => {
     }
 });
 
-
-
-
-
 export default productsRouter;

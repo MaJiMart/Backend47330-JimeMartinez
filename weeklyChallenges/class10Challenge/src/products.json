@@ -1,44 +1,5 @@
 [
 	{
-		"id": "f1c55fd896",
-		"title": "Producto prueba 2",
-		"description": "Este es el segundo producto prueba",
-		"code": "xyf123",
-		"price": 500,
-		"status": true,
-		"stock": 5,
-		"category": "Comida",
-		"thumbnail": "Sin imagen"
-	},
-	{
-		"id": "0a116b2471",
-		"title": "Producto prueba desde Postman",
-		"description": "Este es un producto prueba creado desde Postman",
-		"code": "xyz199",
-		"price": 500,
-		"stock": 5,
-		"category": "Otro"
-	},
-	{
-		"id": "4de471e1f3",
-		"title": "Producto prueba desde Postman",
-		"description": "Este es un producto prueba creado desde Postman",
-		"code": "xyz199",
-		"price": 500,
-		"stock": 5,
-		"category": "Otro"
-	},
-	{
-		"id": "40b8b4ae29",
-		"title": "Producto prueba desde Postman",
-		"description": "Este es un producto prueba creado desde Postman",
-		"code": "xyz199",
-		"price": 500,
-		"status": false,
-		"stock": 5,
-		"category": "Otro"
-	},
-	{
 		"id": "3402771ab9",
 		"title": "Producto prueba desde Postman",
 		"description": "Este es un producto prueba creado desde Postman",
@@ -71,48 +32,6 @@
 		"category": "Otro"
 	},
 	{
-		"id": "ffed375c8e",
-		"title": "Producto prueba desde Postman",
-		"description": "Este es un producto prueba creado desde Postman intento 9999",
-		"code": "xyz199",
-		"price": 500,
-		"status": false,
-		"stock": 5,
-		"category": "Otro"
-	},
-	{
-		"id": "bd9d7b090d",
-		"title": "Producto prueba desde Postman",
-		"description": "Este es un producto prueba creado desde Postman intento 9999",
-		"code": "xyz199",
-		"price": 500,
-		"status": false,
-		"stock": 5,
-		"category": "Otro"
-	},
-	{
-		"id": "af8fee44a5",
-		"title": "nuevo prod",
-		"description": "prueba 2468463",
-		"code": "xyz199",
-		"price": 500,
-		"status": true,
-		"stock": 5,
-		"category": "Otro",
-		"thumbnail": []
-	},
-	{
-		"id": "e38c47cf22",
-		"title": "Prod desde Form 3",
-		"description": "Intento 3 de agregar producto desde formulario ",
-		"code": "sds939",
-		"price": "389",
-		"status": true,
-		"stock": "96",
-		"category": "Ilusión ",
-		"thumbnail": []
-	},
-	{
 		"id": "08323fc578",
 		"title": "Prod desde Form 4",
 		"description": "Intento 4 de agregar producto desde formulario ",
@@ -121,28 +40,6 @@
 		"status": true,
 		"stock": "25",
 		"category": "Ilusión ",
-		"thumbnail": []
-	},
-	{
-		"id": "72ab56cc67",
-		"title": "Prod desde Form 34",
-		"description": "Intento 500000 en realTime",
-		"code": "sds939",
-		"price": "36",
-		"status": true,
-		"stock": "21",
-		"category": "Ilusión ",
-		"thumbnail": []
-	},
-	{
-		"id": "a5bba3b293",
-		"title": "Prod desde Form 34",
-		"description": "Intento 4 de agregar producto desde formulario ",
-		"code": "ewe323",
-		"price": "36",
-		"status": true,
-		"stock": "65",
-		"category": "Food",
 		"thumbnail": []
 	}
 ]
