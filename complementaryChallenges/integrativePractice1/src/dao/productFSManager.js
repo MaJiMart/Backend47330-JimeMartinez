@@ -1,6 +1,6 @@
 import { getJSONFromFile, saveJSONToFile, generateID } from '../utilities.js';
 
-class ProductsManager {
+class ProductsFSManager {
     constructor(path) {
     this.path = path;
 }
@@ -74,4 +74,4 @@ async deleteProduct(id) {
 }
 }
 
-export default ProductsManager;
+export default ProductsFSManager;

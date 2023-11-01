@@ -1,6 +1,6 @@
 import { getJSONFromFile, saveJSONToFile, generateID } from "../utilities.js";
 
-class CartsManager {
+class CartsFSManager {
     constructor(path) {
     this.path = path;
     }
@@ -56,4 +56,4 @@ class CartsManager {
     }
 }
 
-export default CartsManager;
+export default CartsFSManager;
