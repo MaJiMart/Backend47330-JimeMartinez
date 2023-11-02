@@ -1,12 +1,10 @@
 import express from 'express';
 import handlebars from 'express-handlebars';
 import path from 'path';
-import productsFSRouter from './routers/productsFSRouter.js';
-
-import indexRouter from './routers/indexRouter.js';
-import usersRouter from './routers/usersRouter.js';
-
-import realTimeProdRouter from './routers/realTimeProdRouter.js';
+import indexRouter from './routers/views/indexRouter.js';
+import cartApiRouter from './routers/api/cartsApiRouter.js';
+import productsApiRouter from './routers/api/productsApiRouter.js';
+import realTimeProdRouter from './routers/views/realTimeProdRouter.js';
 import { __dirname } from './utilities.js';
 
 const app = express();
@@ -19,9 +17,8 @@ app.engine('handlebars', handlebars.engine());
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'handlebars');
 
-app.use('/', indexRouter);
-app.use('/realtimeproducts', realTimeProdRouter);
-app.use('/api', usersRouter);
+app.use('/', indexRouter, realTimeProdRouter);
+app.use('/api', productsApiRouter, cartApiRouter);
 
 app.use((error, req, res, next) =>{
     const message = `Ups! Ha ocurrido un error: ${error.message}, lo sentimos`;

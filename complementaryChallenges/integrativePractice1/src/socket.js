@@ -1,15 +1,19 @@
 import { Server } from 'socket.io';
-import ProductsManager from './dao/productFSManager.js';
+import ProductsManager from './dao/zproductFSManager.js';
+import ProductsManager from './dao/productManager.js';
+
 
 let io;
 const productManager = new ProductsManager('src/products.json');
 
-export const init = (httpServer) => {
+
+
+export const init = async (httpServer) => {
     io = new Server(httpServer);
 
     io.on('connection', async (socketClient)=>{
         console.log(`Se ha conectado un nuevo cliente con id ${socketClient.id}`);
-        let products = await productManager.getProduct();
+        let products = await productManager.getProducts();
         
         socketClient.emit('listProducts',  products)
 
