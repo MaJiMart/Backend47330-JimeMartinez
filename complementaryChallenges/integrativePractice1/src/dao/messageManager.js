@@ -7,9 +7,9 @@ export default class MessagesManager{
     }
 
     static async createMessage (data) {
-        const { user, message } = data;
+        const { username, message } = data;
         try {
-            const newMessage = new MessageModel({ user, message });
+            const newMessage = new MessageModel({ username, message });
             const sendMessage = await newMessage.save();
             console.log('Mensaje enviado');
             return sendMessage
