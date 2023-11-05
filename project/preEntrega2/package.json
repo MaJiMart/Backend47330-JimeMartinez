@@ -1,0 +1,20 @@
+{
+  "name": "preentrega2",
+  "version": "1.0.0",
+  "description": "Segunda pre-entrega del proyecto del curso de backend",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node .",
+    "dev": "nodemon ."
+  },
+  "keywords": [],
+  "author": "M. Jimena Martinez",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "express-handlebars": "^7.1.2",
+    "mongoose": "^8.0.0",
+    "socket.io": "^4.7.2"
+  }
+}
