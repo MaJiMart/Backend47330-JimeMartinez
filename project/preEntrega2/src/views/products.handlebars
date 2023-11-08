@@ -1,0 +1,24 @@
+<h1>Productos</h1>
+
+<p>These are our available products:</p>
+    <div id="divProducts">
+        {{#each payload}}
+        <div>
+            <h3>{{this.title}}</h3>
+            <p>{{this.description}}</p>
+            <p>Precio: {{this.price}}</p>
+            <p>Stock: {{this.stock}}</p>
+            <p id="idprod">id: {{this._id}}</p>
+        </div>
+        {{/each}}
+    </div>
+
+<a href="{{prevLink}}" role="button" {{#unless hasPrevPage}}disabled{{/unless}}>Anterior</a>
+<p>{{page}}</p>
+<a href="{{nextLink}}" role="button" {{#unless hasNextPage}}disabled{{/unless}}>Siguiente</a>
+
+
+
+
+
+

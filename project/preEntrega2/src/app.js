@@ -1,10 +1,8 @@
 import express from 'express';
 import handlebars from 'express-handlebars';
 import path from 'path';
-import indexRouter from './routers/views/indexRouter.js';
-import cartApiRouter from './routers/api/cartsApiRouter.js';
-import productsApiRouter from './routers/api/productsApiRouter.js';
-import realTimeProdRouter from './routers/views/realTimeProdRouter.js';
+
+import productsRouter from './routers/productsRouter.js';
 import { __dirname } from './utilities.js';
 
 const app = express();
@@ -17,13 +15,13 @@ app.engine('handlebars', handlebars.engine());
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'handlebars');
 
-app.use('/', indexRouter, realTimeProdRouter);
-app.use('/api', productsApiRouter, cartApiRouter);
+app.use('/', productsRouter);
+//app.use('/api', productsRouter);
 
 app.use((error, req, res, next) =>{
     const message = `Ups! Ha ocurrido un error: ${error.message}, lo sentimos`;
     console.log(message);
-    res.status(500).join({ status: 'error', message})
+    res.status(500).json({ status: 'error', message})
 })
 
 export default app

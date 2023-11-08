@@ -1,7 +1,7 @@
 {
   "name": "preentrega2",
   "version": "1.0.0",
-  "description": "Segunda pre-entrega del proyecto del curso de backend",
+  "description": "Segunda pre-entrega del proyecto final de backend",
   "main": "src/server.js",
   "type": "module",
   "scripts": {
@@ -15,6 +15,6 @@
     "express": "^4.18.2",
     "express-handlebars": "^7.1.2",
     "mongoose": "^8.0.0",
-    "socket.io": "^4.7.2"
+    "mongoose-paginate-v2": "^1.7.4"
   }
 }
