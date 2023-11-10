@@ -11,9 +11,7 @@ router.get("/carts", async (req, res) => {
 
 router.get("/carts/:cid", async (req, res) => {
   try {
-    const {
-      params: { cid },
-    } = req;
+    const { params: { cid } } = req;
     const cart = await CartManager.getCartById(cid);
     res.status(200).json(cart);
   } catch (error) {
@@ -29,10 +27,7 @@ router.post("/carts", async (req, res) => {
 
 router.put("/carts/:cid", async (req, res) => {
   try {
-    const {
-      params: { cid },
-      body,
-    } = req;
+    const { params: { cid }, body } = req;
     await CartManager.updateCart(cid, body);
     res.status(204).end();
   } catch (error) {
