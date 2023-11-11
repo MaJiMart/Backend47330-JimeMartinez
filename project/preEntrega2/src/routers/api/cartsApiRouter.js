@@ -37,9 +37,7 @@ router.put("/carts/:cid", async (req, res) => {
 
 router.put("/carts/:cid/products/:pid", async (req, res) => {
   try {
-    const {
-      params: { cid, pid },
-    } = req;
+    const { params: { cid, pid } } = req;
     const { quantity } = req.body;
     await CartManager.updateQuantity(cid, pid, quantity);
     res.status(201).json({ message: "Cantidad actualizada con éxito" });
@@ -50,9 +48,7 @@ router.put("/carts/:cid/products/:pid", async (req, res) => {
 
 router.post("/carts/:cid/products/:pid", async (req, res) => {
   try {
-    const {
-      params: { cid, pid },
-    } = req;
+    const { params: { cid, pid } } = req;
     await CartManager.addProductToCart(cid, pid);
     res.status(200).json({ message: "Producto agregado con éxito" });
   } catch (error) {
@@ -62,9 +58,7 @@ router.post("/carts/:cid/products/:pid", async (req, res) => {
 
 router.delete("/carts/:cid/products/:pid", async (req, res) => {
   try {
-    const {
-      params: { cid, pid },
-    } = req;
+    const { params: { cid, pid } } = req;
     await CartManager.deleteProductToCart(cid, pid);
     res.status(200).json({ message: "Producto eliminado con éxito" });
   } catch (error) {
