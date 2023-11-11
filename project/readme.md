@@ -86,4 +86,11 @@ No es necesario realizar ninguna implementación visual, todo el flujo se puede 
 <p>✔️ Crear una vista en el router de views ‘/products’ para visualizar todos los productos con su respectiva paginación. Cada producto mostrado puede resolverse de dos formas:</p>
     <p>● Llevar a una nueva vista con el producto seleccionado con su descripción completa, detalles de precio, categoría, etc. Además de un botón para agregar al carrito.</p>
     <p>● Contar con el botón de “agregar al carrito” directamente, sin necesidad de abrir una página adicional con los detalles del producto.</p>
-<p>✔️ Además, agregar una vista en ‘/carts/:cid (cartId) para visualizar un carrito específico, donde se deberán listar SOLO los productos que pertenezcan a dicho carrito.</p>   
+<p>✔️ Además, agregar una vista en ‘/carts/:cid (cartId) para visualizar un carrito específico, donde se deberán listar SOLO los productos que pertenezcan a dicho carrito.
+</p>   
+<p>⚙️ Dependencias:</p>
+    <p>express: "^4.18.2",</p>
+    <p>express-handlebars: "^7.1.2",</p>
+    <p>mongoose: "^8.0.0",</p>
+    <p>mongoose-paginate-v2: "^1.7.4"
+</p>
