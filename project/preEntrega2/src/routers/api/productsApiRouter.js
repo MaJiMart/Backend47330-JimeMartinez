@@ -11,9 +11,7 @@ router.get("/products", async (req, res) => {
 
 router.get("/products/:pid", async (req, res) => {
   try {
-    const {
-      params: { pid },
-    } = req;
+    const { params: { pid } } = req;
     const product = await ProductsManager.getProductById(pid);
     res.status(200).json(product);
   } catch (error) {
@@ -29,12 +27,9 @@ router.post("/products", async (req, res) => {
 
 router.put("/products/:pid", async (req, res) => {
   try {
-    const {
-      params: { pid },
-      body,
-    } = req;
+    const { params: { pid }, body } = req;
     await ProductsManager.updateProduct(pid, body);
-    res.status(204).end();
+    res.status(201).json(body);
   } catch (error) {
     res.status(error.statusCode || 500).json({ message: error.message });
   }
@@ -42,11 +37,9 @@ router.put("/products/:pid", async (req, res) => {
 
 router.delete("/products/:pid", async (req, res) => {
   try {
-    const {
-      params: { pid },
-    } = req;
+    const { params: { pid } } = req;
     await ProductsManager.deleteProduct(pid);
-    res.status(204).end();
+    res.status(200).json({ message: "Producto eliminado con éxito" });
   } catch (error) {
     res.status(error.statusCode || 500).json({ message: error.message });
   }

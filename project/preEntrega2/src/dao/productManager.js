@@ -48,7 +48,7 @@ export default class ProductsManager {
             }
             return console.log('Producto eliminado con éxito');
         } catch (error) {
-            throw new Exception(`Error al actualizar el producto: ${error.message}`, 500);
+            throw new Exception(`Error al eliminar el producto: ${error.message}`, 500);
         }
     }
 }

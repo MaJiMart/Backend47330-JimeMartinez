@@ -42,7 +42,7 @@ router.put("/carts/:cid/products/:pid", async (req, res) => {
     } = req;
     const { quantity } = req.body;
     await CartManager.updateQuantity(cid, pid, quantity);
-    res.status(204).end();
+    res.status(201).json({ message: "Cantidad actualizada con éxito" });
   } catch (error) {
     res.status(error.statusCode || 500).json({ message: error.message });
   }
@@ -60,22 +60,6 @@ router.post("/carts/:cid/products/:pid", async (req, res) => {
   }
 });
 
-router.post(
-  "/carts/654bfda0f4ea6f37251b251a/products/:pid",
-  async (req, res) => {
-    try {
-      const {
-        params: { pid },
-      } = req;
-      // Aquí debes agregar la lógica para agregar el producto al carrito utilizando el productId
-      await CartManager.addProductToCart(pid); // Asegúrate de que tengas el cartId disponible
-      res.status(200).json({ message: "Product added to cart" });
-    } catch (error) {
-      res.status(error.statusCode || 500).json({ message: error.message });
-    }
-  }
-);
-
 router.delete("/carts/:cid/products/:pid", async (req, res) => {
   try {
     const {
@@ -90,24 +74,12 @@ router.delete("/carts/:cid/products/:pid", async (req, res) => {
 
 router.delete("/carts/:cid", async (req, res) => {
   try {
-    const {
-      params: { cid },
-    } = req;
+    const { params: { cid } } = req;
     await CartManager.emptyCart(cid);
-    res.status(204).end();
+    res.status(200).json({ message: "Carrito vaciado con éxito" });
   } catch (error) {
     res.status(error.statusCode || 500).json({ message: error.message });
   }
 });
-
-/* router.delete('/carts/:cid', async (req, res) => {
-    try {
-        const { params: { cid } } = req;
-        await CartManager.deleteCart(cid);
-        res.status(204).end();
-    } catch (error) {
-        res.status(error.statusCode || 500).json({ message: error.message});
-    }
-}); */
 
 export default router;
