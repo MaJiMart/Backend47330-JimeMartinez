@@ -1,0 +1,33 @@
+<main class="container">
+    <h1>Welcome {{user.first_name}}</h1>
+    <h3>This is realtime product page, only for admins</h3>
+    <p>Here you can view, add and delete products in real time</p>
+
+    <div>
+        <h3>Add a product:</h3>
+        <form id='addprod' action="/api/products" method="POST">
+            <input id='titleprod' type="text" required name="title" placeholder="Write the name of the product">
+            <input id='descprod' type="text" required name="description" placeholder="Write a brief description of the product">
+            <input id='codeprod' type="text" required name="code" placeholder="Write the product code">
+            <input id='priceprod' type="number" required name="price" placeholder="Write the price of the product">
+            <input id='stockprod' type="number" required name="stock" placeholder="Write the available stock of the product">
+            <input id='catprod' type="text" required name="category" placeholder="Write the product category">
+            <input id="addButton" type="submit" name="Add Product" class="outline">
+        </form>
+    </div>
+    <div>
+        <h3>Product movements in real time:</h3>
+        <div id="divRealTimeProd">
+        </div>
+    </div>
+    <div>
+        <h3>Delete a product:</h3>
+        <form id='deleteprod' action="/api/products/" method="DELETE">
+            <input id='idprod' name="pid" type="text" required placeholder="Write the ID of the product you want to delete">
+            <input id="deleteButton" type="submit" value="Delete Product" class="outline">
+        </form>
+    </div>
+</main>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="js/realTimeProducts.js"></script>

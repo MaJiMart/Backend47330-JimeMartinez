@@ -1,0 +1,74 @@
+<h1>Productos</h1>
+
+<p>Hi {{user.first_name}}!</p>
+
+<p>These are our available products:</p>
+<div id="filters">
+<label for="category">Category:</label>
+<select name="options" id="categorySelect">
+    <option value="" >All</option>
+    <option value="Home" >Home</option>
+    <option value="Personal care" >Personal care</option>
+    <option value="Gifts" >Gifts</option>
+    <option value="Otro" >Otro</option>
+</select>
+<label for="sort">Sort:</label>
+<select name="options" id="sortSelect">
+    <option value="desc" >Higher at lower price</option>
+    <option value="asc">Lower at higher price</option>
+</select>
+</div>
+
+    <div id="divProducts">
+        {{#each payload}}
+        <div>
+            <h3>{{this.title}}</h3>
+            <p>{{this.description}}</p>
+            <p>Price: {{this.price}}</p>
+            <p>Category: {{this.category}}</p>
+            <p id="idprod">id: {{this._id}}</p>
+            <input id="btnAddCart" type="submit" value="Add Product" class="outline">
+        </div>
+        {{/each}}
+    </div>
+<div id="pagination">
+<a href="{{prevLink}}" role="button" {{#unless hasPrevPage}}disabled{{/unless}}>Prev</a>
+<p>{{page}}</p>
+<a href="{{nextLink}}" role="button" {{#unless hasNextPage}}disabled{{/unless}}>Next</a>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const categorySelect = document.getElementById("categorySelect");
+        const sortSelect = document.getElementById("sortSelect");
+
+        // Obtener los valores de category y sort de la URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const categoryParam = urlParams.get("category");
+        const sortParam = urlParams.get("sort");
+
+        // Establecer las opciones seleccionadas en los select según los parámetros de la URL
+        if (categoryParam) {
+            categorySelect.value = categoryParam;
+        }
+        if (sortParam) {
+            sortSelect.value = sortParam;
+        }
+        
+        //Redirigir URL
+        function redirectToNewURL() {
+            const selectedCategory = categorySelect.value;
+            const selectedSort = sortSelect.value;
+            const newURL = `/products?category=${selectedCategory}&sort=${selectedSort}`;
+            window.location.href = newURL;
+        }
+
+        //Eventos
+        categorySelect.addEventListener("change", redirectToNewURL);
+        sortSelect.addEventListener("change", redirectToNewURL);
+    });
+</script>
+
+
+
+
