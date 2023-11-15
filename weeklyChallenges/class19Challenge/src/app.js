@@ -10,7 +10,7 @@ import indexRouter from './routers/views/indexRouter.js';
 import productsRouter from './routers/views/productsRouter.js';
 import cartRouter from './routers/views/cartRouter.js';
 import registerRouter from './routers/views/registerRouter.js'
-import router from './routers/views/realTimeProdRouter.js';
+import adminProdRouter from './routers/views/adminProdRouter.js';
 /* Apis */
 import productsApiRouter from './routers/api/productsApiRouter.js';
 import cartsApiRouter from './routers/api/cartsApiRouter.js';
@@ -28,7 +28,7 @@ app.use (expressSession({
     saveUninitialized: false,
     store: MongoStore.create({
         mongoUrl: URI,
-        ttl: 360,
+        ttl: 86400,
     }),
 }))
 
@@ -36,7 +36,7 @@ app.engine('handlebars', handlebars.engine());
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'handlebars');
 
-app.use('/', indexRouter, productsRouter, cartRouter, registerRouter, router);
+app.use('/', indexRouter, productsRouter, cartRouter, registerRouter, adminProdRouter);
 app.use('/api', productsApiRouter, cartsApiRouter, sessionApiRouter);
 
 app.use((error, req, res, next) =>{

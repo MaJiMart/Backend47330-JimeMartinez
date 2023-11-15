@@ -1,7 +1,7 @@
 <main class="container">
     <h1>Welcome {{user.first_name}}</h1>
-    <h3>This is realtime product page, only for admins</h3>
-    <p>Here you can view, add and delete products in real time</p>
+    <h3>This is a page to manage products, only for admins</h3>
+    <p>Here you can add and delete products</p>
 
     <div>
         <h3>Add a product:</h3>
@@ -12,14 +12,9 @@
             <input id='priceprod' type="number" required name="price" placeholder="Write the price of the product">
             <input id='stockprod' type="number" required name="stock" placeholder="Write the available stock of the product">
             <input id='catprod' type="text" required name="category" placeholder="Write the product category">
-            <input id="addButton" type="submit" name="Add Product" class="outline">
+            <input id="addButton" type="submit" value="Add Product" class="outline">
         </form>
-    </div>
-    <div>
-        <h3>Product movements in real time:</h3>
-        <div id="divRealTimeProd">
-        </div>
-    </div>
+
     <div>
         <h3>Delete a product:</h3>
         <form id='deleteprod' action="/api/products/" method="DELETE">
@@ -28,6 +23,3 @@
         </form>
     </div>
 </main>
-
-<script src="/socket.io/socket.io.js"></script>
-<script src="js/realTimeProducts.js"></script>

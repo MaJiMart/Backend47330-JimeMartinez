@@ -11,7 +11,7 @@ router.get("/cart/:cid", async (req, res) => {
     const result = await CartManager.getCartById(cid)
     res.render('cart', buildResponse(cid, result))
   } catch (error) {
-    console.log('Error', error.message);
+    console.error('Error', error.message);
   }
 });
 

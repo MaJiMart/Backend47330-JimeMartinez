@@ -7,7 +7,7 @@ const userSchema = new Schema(
     email: { type: String, unique: true },
     age: { type: Number },
     password: { type: String },
-    is_admin: { type: Boolean, default: false },
+    rol: { type: String, default: 'user' },
   },
   { timestamps: true, versionKey: false }
 );

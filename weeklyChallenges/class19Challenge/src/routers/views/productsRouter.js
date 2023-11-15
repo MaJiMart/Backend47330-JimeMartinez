@@ -4,18 +4,24 @@ import ProductModel from "../../models/productModel.js";
 const router = Router();
 
 router.get("/products", async (req, res) => {
-  const { page = 1, limit = 10, category, sort } = req.query;
-  const criteria = {};
-  const ops = { page, limit, sort: { price: sort || "desc" } };
-  if (category) {
-    criteria.category = category;
+  try {
+    const { page = 1, limit = 10, category, sort } = req.query;
+    const criteria = {};
+    const ops = { page, limit, sort: { price: sort || "desc" } };
+    if (category) {
+      criteria.category = category;
+    }
+    const result = await ProductModel.paginate(criteria, ops);
+    const userData = req.session.user;
+    //console.log('userData', userData);
+    res.render("products", buildResponse({ ...result, category, userData }));
+    console.log(userData);
+    } catch (error) {
+      console.error('Error', error.message);
   }
-  const result = await ProductModel.paginate(criteria, ops);
-  res.render("products", buildResponse({ ...result, category }));
 });
 
 const buildResponse = (data) => {
-
   return {
     status: "success",
     payload: data.docs.map((product) => product.toJSON()),
