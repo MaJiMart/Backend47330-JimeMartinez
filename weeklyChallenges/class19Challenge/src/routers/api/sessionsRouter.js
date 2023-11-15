@@ -38,4 +38,10 @@ router.post('/sessions/login', async(req, res) => {
     }
 });
 
+router.get('/sessions/logout', (req, res) => {
+    req.session.destroy((error) => {
+        res.redirect('/')    
+    })
+});
+
 export default router

@@ -9,6 +9,38 @@
     --primary-inverse: #FFF;
   } */
 
+#info {
+    height: 6rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    border-style: groove;
+    border-color: rgba(128, 128, 128, 0.39);
+    
+}
+
+#info #infoUser{
+    text-align: right;
+}
+
+#info #buttonOut{
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+}
+
+#info #buttonOut input{
+    margin: 0;
+    height: 2.5rem;
+    width: 5rem;
+    padding: 8px;
+    text-align: center;
+}
+
+
 /* Home */
 .container h1 {
     text-align: center;

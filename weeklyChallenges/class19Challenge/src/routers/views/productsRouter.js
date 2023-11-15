@@ -12,16 +12,16 @@ router.get("/products", async (req, res) => {
       criteria.category = category;
     }
     const result = await ProductModel.paginate(criteria, ops);
-    const userData = req.session.user;
+    let userData = req.session.user;
     //console.log('userData', userData);
-    res.render("products", buildResponse({ ...result, category, userData }));
-    console.log(userData);
+    res.render("products", buildResponse({ ...result }, { category, userData }));
+    
     } catch (error) {
       console.error('Error', error.message);
   }
 });
 
-const buildResponse = (data) => {
+const buildResponse = (data, {category, userData}) => {
   return {
     status: "success",
     payload: data.docs.map((product) => product.toJSON()),
@@ -45,6 +45,8 @@ const buildResponse = (data) => {
           data.sort ? `&sort=${data.sort}` : ""
         }`
       : "",
+      userData: userData,
+      category: category,
   };
 };
 
