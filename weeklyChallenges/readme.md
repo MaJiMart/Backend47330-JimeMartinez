@@ -78,3 +78,46 @@ _❗Para ver el código de cada desafío revisa la carpeta que tiene el mismo no
     <p>socket.io: "^4.7.2"
 
 </p>
+
+## 📌class19Challenge: "Implementación de login"
+
+<p>Ajustar nuestro servidor principal para trabajar con un sistema de login.
+</p>
+<p>Aspectos a incluir:</p>
+<p>✔️ Deberá contar con todas las vistas realizadas en el hands on lab, así también como las rutas de router para procesar el registro y el login.</p>
+<p>✔️ Una vez completado el login, realizar la redirección directamente a la vista de productos.</p>
+<p>✔️ Agregar a la vista de productos un mensaje de bienvenida con los datos del usuario.</p>
+<p>✔️ Agregar un sistema de roles, de manera que si colocamos en el login como correo adminCoder@coder.com, y la contraseña adminCod3r123, el usuario de la sesión además tenga un campo.</p>
+<p>✔️ Todos los usuarios que no sean admin deberán contar con un rol “usuario”.</p>
+<p>✔️ Implementar botón de “logout” para destruir la sesión y redirigir a la vista de login.
+</p>
+<p>⚙️ Dependencias:</p>
+    <p>connect-mongo: "^5.1.0",</p>
+    <p>express: "^4.18.2",</p>
+    <p>express-handlebars: "^7.1.2",</p>
+    <p>express-session: "^1.17.3",</p>
+    <p>mongoose: "^8.0.0",</p>
+    <p>mongoose-paginate-v2: "^1.7.4",</p>
+    <p>session-file-store: "^1.5.0"
+
+</p>
+
+## 📌class21Challenge: "Refactor a nuestro login"
+
+<p>Con base en el login de nuestro entregable anterior, refactorizar para incluir los nuevos conceptos.
+</p>
+<p>Aspectos a incluir:</p>
+<p>✔️ Se deberá contar con un hasheo de contraseña utilizando bcrypt.</p>
+<p>✔️ Se deberá contar con una implementación de passport, tanto para register como para login.</p>
+<p>✔️ Implementar el método de autenticación de GitHub a la vista de login.
+</p>
+<p>⚙️ Dependencias:</p>
+    <p>connect-mongo: "^5.1.0",</p>
+    <p>express: "^4.18.2",</p>
+    <p>express-handlebars: "^7.1.2",</p>
+    <p>express-session: "^1.17.3",</p>
+    <p>mongoose: "^8.0.0",</p>
+    <p>mongoose-paginate-v2: "^1.7.4",</p>
+    <p>session-file-store: "^1.5.0"
+
+</p>
