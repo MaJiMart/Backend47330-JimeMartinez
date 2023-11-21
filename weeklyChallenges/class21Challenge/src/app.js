@@ -1,16 +1,19 @@
 import express from 'express';
+import passport from 'passport';
 import handlebars from 'express-handlebars';
 import expressSession from 'express-session';
 import MongoStore from 'connect-mongo';
 import path from 'path';
-import { URI } from './db/mongodb.js'
+import { URI } from './db/mongodb.js';
 import { __dirname, sessionSecret } from './utilities.js';
+import { initPassport } from './config/passport.config.js';
 /* Views */
 import indexRouter from './routers/views/indexRouter.js';
 import productsRouter from './routers/views/productsRouter.js';
 import cartRouter from './routers/views/cartRouter.js';
 import registerRouter from './routers/views/registerRouter.js'
 import adminProdRouter from './routers/views/adminProdRouter.js';
+import recoverPassRouter from './routers/views/recoverPassRouter.js';
 /* Apis */
 import productsApiRouter from './routers/api/productsApiRouter.js';
 import cartsApiRouter from './routers/api/cartsApiRouter.js';
@@ -32,17 +35,21 @@ app.use (expressSession({
     }),
 }))
 
+initPassport();
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.engine('handlebars', handlebars.engine());
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'handlebars');
 
-app.use('/', indexRouter, productsRouter, cartRouter, registerRouter, adminProdRouter);
+app.use('/', indexRouter, productsRouter, cartRouter, registerRouter, adminProdRouter, recoverPassRouter);
 app.use('/api', productsApiRouter, cartsApiRouter, sessionApiRouter);
 
 app.use((error, req, res, next) =>{
     const message = `Ups! Ha ocurrido un error: ${error.message}, lo sentimos`;
     console.log(message);
     res.status(500).json({ status: 'error', message})
-})
+});
 
 export default app
