@@ -8,6 +8,7 @@ const userSchema = new Schema(
     age: { type: Number },
     password: { type: String },
     rol: { type: String, default: 'user' },
+    provider: { type: String, default: 'local'}
   },
   { timestamps: true, versionKey: false }
 );

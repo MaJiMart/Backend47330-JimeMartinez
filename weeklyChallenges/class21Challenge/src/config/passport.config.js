@@ -1,11 +1,18 @@
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
+import GithubStrategy from 'passport-github2';
 import { createHash, isValidPassword } from '../utilities.js';
 import UserModel from '../models/userModel.js';
 
 const opts = {
   usernameField: 'email',
   passReqToCallback: true,
+};
+
+const githubOpts = {
+  clientID: 'Iv1.584fc3f095089d99',
+  clientSecret: '659324d34176ebb54331234f4656f2e8a31da679',
+  callbackURL: 'http://localhost:8080/api/sessions/githubcb'
 };
 
 export const initPassport = () => {
@@ -38,6 +45,21 @@ export const initPassport = () => {
     }
   }));
   
+  passport.use('github', new GithubStrategy(githubOpts, async(accessToken, refreshToken, profile, done) => {
+    const email = profile._json.email;
+    let user = await UserModel.findOne({ email });
+    if (user) {
+      return done(null, user);
+    }
+    user = {
+      first_name: profile._json.name,
+      email: profile._json.email,
+      provider: 'Github'
+    };
+    const newUser = await UserModel.create(user);
+    done(null, newUser);
+  }))
+
   passport.serializeUser((user, done) => {
     done(null, user._id);
   });

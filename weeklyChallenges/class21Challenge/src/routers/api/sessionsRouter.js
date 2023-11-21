@@ -9,7 +9,17 @@ router.post('/sessions/register', passport.authenticate('register', { failureRed
   res.redirect('/');
 })
 
-router.post('/sessions/login', passport.authenticate('login', { failureRedirect: '/login' }), (req, res) => {
+router.post('/sessions/login', passport.authenticate('login', { failureRedirect: '/' }), (req, res) => {
+  req.session.user = req.user;
+  if (req.user.rol === 'admin') {
+    return res.redirect('/adminProducts');
+  }
+  res.redirect('/products');
+});
+
+router.get('/sessions/github', passport.authenticate('github', { scope: ['user:email'] }));
+
+router.get('/sessions/githubcb', passport.authenticate('github', { failureRedirect: '/' }), (req, res) => {
   req.session.user = req.user;
   if (req.user.rol === 'admin') {
     return res.redirect('/adminProducts');

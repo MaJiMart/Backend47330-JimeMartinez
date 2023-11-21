@@ -4,13 +4,17 @@
   on a daily basis. We hope you enjoy this space</p>
 
 <article>
-  <form action="/api/sessions/login" method="post">
+  <form action='/api/sessions/login' method='post'>
     <header><h3>Login:</h3></header>
-    <input type="email" name="email" placeholder="Email" required />
-    <input type="password" name="password" placeholder="Password" required />
+    <input type='email' name='email' placeholder='Email' required />
+    <input type='password' name='password' placeholder='Password' required />
     <footer>
-      <input type="submit" value="Login" class="outline" />
-      <a href="/recoverPass">Forgot your password?</a>
+      <input type='submit' value='Login' class='outline' />
+      <a href='/recoverPass'>Forgot your password?</a>
     </footer>
+    <div>
+      <p>Sign in with:</p>
+      <a href='/api/sessions/github'sol role='button' class='outline'>GitHub</a>
+    </div>
   </form>
 </article>
