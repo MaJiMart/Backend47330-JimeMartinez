@@ -112,12 +112,15 @@ _❗Para ver el código de cada desafío revisa la carpeta que tiene el mismo no
 <p>✔️ Implementar el método de autenticación de GitHub a la vista de login.
 </p>
 <p>⚙️ Dependencias:</p>
+    <p>bcrypt: "^5.1.1",</p>
     <p>connect-mongo: "^5.1.0",</p>
     <p>express: "^4.18.2",</p>
     <p>express-handlebars: "^7.1.2",</p>
     <p>express-session: "^1.17.3",</p>
-    <p>mongoose: "^8.0.0",</p>
+    <p>mongoose: "^8.0.1",</p>
     <p>mongoose-paginate-v2: "^1.7.4",</p>
-    <p>session-file-store: "^1.5.0"
+    <p>passport: "^0.6.0",</p>
+    <p>passport-github2: "^0.1.12",</p>
+    <p>passport-local: "^1.0.0"
 
 </p>
