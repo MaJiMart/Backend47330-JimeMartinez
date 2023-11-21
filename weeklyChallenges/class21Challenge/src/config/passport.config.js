@@ -9,7 +9,7 @@ const opts = {
 };
 
 export const initPassport = () => {
-  passport.use('register', new LocalStrategy(opts, async (req, email, password, done) => {
+  passport.use('register', new LocalStrategy(opts, async(req, email, password, done) => {
     try {
         const user = await UserModel.findOne({ email });
           if (user) {
@@ -43,7 +43,7 @@ export const initPassport = () => {
   });
 
   passport.deserializeUser(async(uid, done) => {
-    const user = await UserModel.findById({ uid });
+    const user = await UserModel.findById(uid);
     done(null, user);
   });
 };
