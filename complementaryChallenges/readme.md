@@ -32,3 +32,37 @@ _❗Para ver el código de cada desafío revisa la carpeta que tiene el mismo no
     <p>socket.io: "^4.7.2"
 
 </p>
+
+## 📌integrativePractice2: "Proyecto ecommerce"
+
+<br>Consigna:</br>
+<p>Continuar sobre el proyecto que has trabajado para tu ecommerce y configurar los siguientes elementos:</p>
+
+<p>✔️ Crear un modelo User el cual contará con los campos:</p>
+    <p>● first_name: String,</p>
+    <p>● last_name: String,</p>
+    <p>● email: String (único)</p>
+    <p>● age: Number,</p>
+    <p>● password: String(Hash)</p>
+    <p>● cart: Id con referencia a Carts</p>
+    <p>● role: String(default:'user')</p>
+
+<p>✔️ Desarrollar las estrategias de Passport para que funcionen con este modelo de usuarios</p>
+<p>✔️ Modificar el sistema de login del usuario para poder trabajar con session o con jwt (a tu elección).</p>
+<p>✔️ (Sólo para jwt) desarrollar una estrategia “current” para extraer la cookie que contiene el token para obtener el usuario asociado a dicho token, en caso de tener el token, devolver al usuario asociado al token, caso contrario devolver un error de passport, utilizar un extractor de cookie.</p>
+<p>✔️ Agregar al router /api/sessions/ la ruta /current, la cual utilizará el modelo de sesión que estés utilizando, para poder devolver en una respuesta el usuario actual.
+</p>
+
+<p>⚙️ Dependencias:</p>
+    <p>bcrypt: "^5.1.1",</p>
+    <p>connect-mongo: "^5.1.0",</p>
+    <p>express: "^4.18.2",</p>
+    <p>express-handlebars: "^7.1.2",</p>
+    <p>express-session: "^1.17.3",</p>
+    <p>mongoose: "^8.0.1",</p>
+    <p>mongoose-paginate-v2: "^1.7.4",</p>
+    <p>passport: "^0.7.0",</p>
+    <p>passport-github2: "^0.1.12",</p>
+    <p>passport-local: "^1.0.0"
+    
+</p>
