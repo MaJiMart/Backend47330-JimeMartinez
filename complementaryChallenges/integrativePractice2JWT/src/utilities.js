@@ -18,12 +18,13 @@ export class Exception extends Error {
 }
 
 export const tokenGenerator = (user) => {
-  const { _id, first_name, last_name, email } = user;
+  const { _id, first_name, last_name, email, role } = user;
   const payload = {
     id: _id,
     first_name,
     last_name,
     email,
+    role,
   };
   return jwt.sign(payload, JWT_SECRET, { expiresIn: '1m'});
 };
@@ -39,7 +40,7 @@ export const verifyToken = (token) => {
   })
 }
 
-export const authMiddleware = (strategy) => (req, res, next) =>{
+export const authenticationMidd = (strategy) => (req, res, next) =>{
   passport.authenticate(strategy, function(error, user, info) {
     if (error) {
       return next(error);
@@ -51,6 +52,17 @@ export const authMiddleware = (strategy) => (req, res, next) =>{
     next();
   })(req, res, next);
 };
+
+export const authorizationMidd = (roles) => (req, res, next) => {
+  if (!req.user) {
+    return res.status(401).json({ message: 'Not authorized'});
+  }
+  const {role: userRole} = req.user;
+  if(!roles.includes(userRole)) {
+    return res.status(403).json({ message: 'Forbidden'});
+  }
+  next();
+}
 
 export const createHash = (password) => bcrypt.hashSync(password, bcrypt.genSaltSync(10));
 

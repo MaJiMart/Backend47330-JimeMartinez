@@ -3,15 +3,12 @@ import {
   isValidPassword,
   tokenGenerator,
   verifyToken,
-  authMiddleware,
+  authenticationMidd,
+  authorizationMidd,
 } from '../../utilities.js';
 import UserModel from '../../models/userModel.js';
 
 const router = Router();
-
-/* router.get('/', (req, res) => {
-  res.render('index', { title: 'Ecofriendly Shop' });
-});*/
 
 router.post('/auth-login', async (req, res) => {
   const {
@@ -32,10 +29,12 @@ router.post('/auth-login', async (req, res) => {
     .json({ status: 'success' });
 });
 
-router.get('/current', authMiddleware('jwt'), (req, res) => {
+router.get('/current', authenticationMidd('jwt'), authorizationMidd(['user', 'seller', 'admin']), (req, res) => {
   res.status(200).json(req.user)
 })
 
-
+router.get('/admin', authenticationMidd('jwt'), authorizationMidd('admin'), (req, res) => {
+  res.status(200).json({ success: true})
+})
 
 export default router;
