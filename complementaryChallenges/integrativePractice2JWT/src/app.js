@@ -1,23 +1,16 @@
 import express from 'express';
-import passport from 'passport';
-import handlebars from 'express-handlebars';
-import expressSession from 'express-session';
-import MongoStore from 'connect-mongo';
+//import handlebars from 'express-handlebars';
 import path from 'path';
-import { URI } from './db/mongodb.js';
-import { __dirname, sessionSecret } from './utilities.js';
+import cookieParser from 'cookie-parser';
+import passport from 'passport';
 import { initPassport } from './config/passport.config.js';
+import { __dirname } from './utilities.js';
 /* Views */
-import indexRouter from './routers/views/indexRouter.js';
-import productsRouter from './routers/views/productsRouter.js';
-import cartRouter from './routers/views/cartRouter.js';
-import registerRouter from './routers/views/registerRouter.js'
-import adminProdRouter from './routers/views/adminProdRouter.js';
-import recoverPassRouter from './routers/views/recoverPassRouter.js';
+import indexRouter from './routers/views/indexRouter.js'
 /* Apis */
 import productsApiRouter from './routers/api/productsApiRouter.js';
 import cartsApiRouter from './routers/api/cartsApiRouter.js';
-import sessionApiRouter from './routers/api/sessionsRouter.js';
+
 
 const app = express();
 
@@ -25,26 +18,17 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
 app.use(express.static(path.join(__dirname, '../public')));
 
-app.use (expressSession({
-    secret: sessionSecret,
-    resave: false,
-    saveUninitialized: false,
-    store: MongoStore.create({
-        mongoUrl: URI,
-        ttl: 86400,
-    }),
-}))
+app.use(cookieParser());
 
-initPassport();
-app.use(passport.initialize());
-app.use(passport.session());
+initPassport()
+app.use(passport.initialize())
 
-app.engine('handlebars', handlebars.engine());
+/* app.engine('handlebars', handlebars.engine());
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'handlebars');
+app.set('view engine', 'handlebars'); */
 
-app.use('/', indexRouter, productsRouter, cartRouter, registerRouter, adminProdRouter, recoverPassRouter);
-app.use('/api', productsApiRouter, cartsApiRouter, sessionApiRouter);
+app.use('/', indexRouter)
+app.use('/api', productsApiRouter, cartsApiRouter);
 
 app.use((error, req, res, next) =>{
     const message = `Ups! Ha ocurrido un error: ${error.message}, lo sentimos`;

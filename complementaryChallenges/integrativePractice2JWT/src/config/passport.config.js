@@ -1,10 +1,31 @@
 import passport from 'passport';
-import { Strategy as LocalStrategy } from 'passport-local';
-import GithubStrategy from 'passport-github2';
-import { createHash, isValidPassword } from '../utilities.js';
-import UserModel from '../models/userModel.js';
+import { Strategy as JWTStrategy, ExtractJwt } from 'passport-jwt';
+import { JWT_SECRET } from '../utilities.js';
+//import { Strategy as LocalStrategy } from 'passport-local';
+//import GithubStrategy from 'passport-github2';
+//import { createHash, isValidPassword } from '../utilities.js';
+//import UserModel from '../models/userModel.js';
 
-const opts = {
+function cookieExtractor(req) {
+  let token = null;
+  if (req && req.cookies) {
+    token = req.cookies.access_token;
+  }
+  return token;
+}
+
+export const initPassport = () => {
+  passport.use('jwt', new JWTStrategy({
+    jwtFromRequest: ExtractJwt.fromExtractors([cookieExtractor]),
+    secretOrKey: JWT_SECRET,
+  }, (payload, done) => {
+    return done(null, payload);
+  }))
+}
+
+
+
+/* const opts = {
   usernameField: 'email',
   passReqToCallback: true,
 };
@@ -68,4 +89,4 @@ export const initPassport = () => {
     const user = await UserModel.findById(uid);
     done(null, user);
   });
-};
+}; */
