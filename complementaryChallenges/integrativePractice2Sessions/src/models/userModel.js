@@ -18,7 +18,7 @@ const userSchema = new Schema(
       type: [cartItemSchema],
       default: [],
     },
-    rol: { type: String, default: 'user' },
+    rol: { type: String, default: 'user', enum: ['user', 'seller', 'admin'] },
     provider: { type: String, default: 'local' },
   },
   { timestamps: true, versionKey: false }
