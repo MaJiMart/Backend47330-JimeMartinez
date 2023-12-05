@@ -9,6 +9,7 @@ const __filename = fileURLToPath(import.meta.url);
 export const __dirname = path.dirname(__filename);
 
 export const JWT_SECRET = '%ySKY5=n,O#7£|VG~pa2Q.4)ed4zhJ8';
+export const COOKIE_SECRET = '_z}.7j}\CGO0wMuhpz98v3/rQt/EI\bH';
 
 export class Exception extends Error {
   constructor(message, status) {
@@ -56,6 +57,9 @@ export const authenticationMidd = (strategy) => (req, res, next) =>{
 export const authorizationMidd = (roles) => (req, res, next) => {
   if (!req.user) {
     return res.status(401).json({ message: 'Not authorized'});
+  }
+  if (roles.includes('user')){
+    return next();
   }
   const {role: userRole} = req.user;
   if(!roles.includes(userRole)) {

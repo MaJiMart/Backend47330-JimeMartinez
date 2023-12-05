@@ -11,7 +11,7 @@ router.post('/sessions/register', passport.authenticate('register', { failureRed
 
 router.post('/sessions/login', passport.authenticate('login', { failureRedirect: '/' }), (req, res) => {
   req.session.user = req.user;
-  if (req.user.rol === 'admin') {
+  if (req.user.role === 'admin') {
     return res.redirect('/adminProducts');
   }
   res.redirect('/products');
@@ -21,7 +21,7 @@ router.get('/sessions/github', passport.authenticate('github', { scope: ['user:e
 
 router.get('/sessions/githubcb', passport.authenticate('github', { failureRedirect: '/' }), (req, res) => {
   req.session.user = req.user;
-  if (req.user.rol === 'admin') {
+  if (req.user.role === 'admin') {
     return res.redirect('/adminProducts');
   }
   res.redirect('/products');

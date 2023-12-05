@@ -45,6 +45,18 @@ export const initPassport = () => {
       done(new Error(`Authentication Error ${error.message}`))
     }
   }));
+
+  passport.use('adminproducts', new LocalStrategy(opts, async (req, email, password, done) => {
+    try {
+      const user = await UserModel.findOne({ email });
+      if (user.role !== 'admin') {
+        return done(null, false, { message: 'Sorry, you do not have permission to access' });
+      }
+      done(null, user);
+    } catch (error) {
+      done(new Error(`Authentication Error ${error.message}`));
+    }
+  }));
   
   passport.use('github', new GithubStrategy(githubOpts, async(accessToken, refreshToken, profile, done) => {
     let email = profile._json.email;
