@@ -1,0 +1,34 @@
+<header id="info">
+    <div id="infoUser">
+        <div>{{user.first_name}} {{user.last_name}}</div>
+        <div>User's type: {{user.rol}}</div>
+    </div>
+    <div id="buttonOut">
+        <a href="/api/sessions/logout" role="button" id="logoutButton" class="outline">Logout</a>
+    </div> 
+</header>
+
+<h1>Welcome {{user.first_name}}</h1>
+<h3>This is a page to manage products, only for admins</h3>
+<p>Here you can add and delete products</p>
+
+<div>
+    <h3>Add a product:</h3>
+    <form id='addprod' action="/api/products" method="POST">
+            <input id='titleprod' type="text" required name="title" placeholder="Write the name of the product">
+            <input id='descprod' type="text" required name="description" placeholder="Write a brief description of the product">
+            <input id='codeprod' type="text" required name="code" placeholder="Write the product code">
+            <input id='priceprod' type="number" required name="price" placeholder="Write the price of the product">
+            <input id='stockprod' type="number" required name="stock" placeholder="Write the available stock of the product">
+            <input id='catprod' type="text" required name="category" placeholder="Write the product category">
+            <input id="addButton" type="submit" value="Add Product" class="outline">
+    </form>
+
+<div>
+    <h3>Delete a product:</h3>
+    <form id='deleteprod' action="/api/products/" method="DELETE">
+        <input id='idprod' name="pid" type="text" required placeholder="Write the ID of the product you want to delete">
+        <input id="deleteButton" type="submit" value="Delete Product" class="outline">
+    </form>
+</div>
+
