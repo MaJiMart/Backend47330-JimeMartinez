@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 
-export const URI = 'mongodb+srv://MaJiMart:YJbYiFYE2PehrNj3@cluster0.vxyquai.mongodb.net/ecommerce';
+export const URI = 'mongodb+srv://complete.vxyquai.mongodb.net/ecommerce';
 
 export const initdb = async () => {
     try {
