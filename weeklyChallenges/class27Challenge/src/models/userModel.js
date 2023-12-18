@@ -1,4 +1,11 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Schema } from 'mongoose';
+
+const cartItemSchema = new Schema(
+  {
+    cart: { type: Schema.Types.ObjectId, ref: 'Carts' },
+  },
+  { _id: false }
+);
 
 const userSchema = new Schema(
   {
@@ -7,10 +14,14 @@ const userSchema = new Schema(
     email: { type: String, unique: true },
     age: { type: Number },
     password: { type: String },
-    rol: { type: String, default: 'user' },
-    provider: { type: String, default: 'local'}
+    cart: {
+      type: [cartItemSchema],
+      default: [],
+    },
+    role: { type: String, default: 'user', enum: ['user', 'seller', 'admin'] },
+    provider: { type: String, default: 'local' },
   },
   { timestamps: true, versionKey: false }
 );
 
-export default mongoose.model("User", userSchema);
+export default mongoose.model('User', userSchema);

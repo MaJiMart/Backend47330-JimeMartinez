@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { authenticationMidd, authorizationMidd } from '../../utilities.js';
 import ProductsManager from "../../dao/productManager.js";
 
 const router = Router();
@@ -19,13 +20,13 @@ router.get("/products/:pid", async (req, res) => {
   }
 });
 
-router.post("/products", async (req, res) => {
+router.post("/products", authenticationMidd('jwt'), authorizationMidd('admin'), async (req, res) => {
   const { body } = req;
   const newProduct = await ProductsManager.createProduct(body);
   res.status(201).json(newProduct);
 });
 
-router.put("/products/:pid", async (req, res) => {
+router.put("/products/:pid", authenticationMidd('jwt'), authorizationMidd('admin'), async (req, res) => {
   try {
     const { params: { pid }, body } = req;
     await ProductsManager.updateProduct(pid, body);
@@ -35,7 +36,7 @@ router.put("/products/:pid", async (req, res) => {
   }
 });
 
-router.delete("/products/:pid", async (req, res) => {
+router.delete("/products/:pid", authenticationMidd('jwt'), authorizationMidd('admin'), async (req, res) => {
   try {
     const { params: { pid } } = req;
     await ProductsManager.deleteProduct(pid);
