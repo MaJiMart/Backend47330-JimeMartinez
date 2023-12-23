@@ -124,3 +124,28 @@ _❗Para ver el código de cada desafío revisa la carpeta que tiene el mismo no
     <p>passport-local: "^1.0.0"
 
 </p>
+
+## 📌class27Challenge: "Reestructura de nuestro servidor"
+
+<p>Con base en las clases previamente vistas, realizar los cambios necesarios en tu proyecto para que se base en un modelo de capas.
+</p>
+<p>Aspectos a incluir:</p>
+<p>✔️ El proyecto debe contar con capas de routing, controlador, dao, con nuestras vistas bien separadas y con las responsabilidades correctamente delegadas.</p>
+<p>✔️ Además, mover del proyecto todas las partes importantes y comprometedoras en un archivo .env para poder leerlo bajo variables de entorno en un archivo config.js
+</p>
+<p>⚙️ Dependencies:</p>
+    <p>bcrypt: "^5.1.1",</p>
+    <p>commander: "^11.1.0"</p>
+    <p>connect-mongo: "^5.1.0",</p>
+    <p>cookie-parser: "^1.4.6"</P>
+    <p>express: "^4.18.2",</p>
+    <p>jsonwebtoken: "^9.0.2"</P>
+    <p>mongoose: "^8.0.1",</p>
+    <p>mongoose-paginate-v2: "^1.7.4",</p>
+    <p>passport: "^0.6.0",</p>
+    <p>passport-github2: "^0.1.12",</p>
+    <p>passport-jwt: "^4.0.1"</P>
+    <p>passport-local: "^1.0.0"
+</p>
+<p>⚙️ devDependencies:</p>
+    <p>dotenv: "^16.3.1"</P>
