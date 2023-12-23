@@ -1,8 +1,8 @@
 import UserDao from '../dao/userDao.js';
 
 export default class UserService {
-  static findAll(filter = {}) {
-    return UserDao.get(filter);
+  static getUsers(filter = {}) {
+    return UserDao.getUsers(filter);
   }
 
   static async create(payload) {
@@ -11,7 +11,7 @@ export default class UserService {
     return user;
   }
 
-  static findById(uid) {
+  static getById(uid) {
     return UserDao.getById(uid);
   }
 

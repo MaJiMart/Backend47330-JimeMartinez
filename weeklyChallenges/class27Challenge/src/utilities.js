@@ -28,7 +28,7 @@ export const tokenGenerator = (user) => {
     email,
     role,
   };
-  return jwt.sign(payload, JWT_SECRET, { expiresIn: '1m'});
+  return jwt.sign(payload, JWT_SECRET, { expiresIn: '10m'});
 };
 
 export const verifyToken = (token) => {
@@ -48,7 +48,7 @@ export const authenticationMidd = (strategy) => (req, res, next) =>{
       return next(error);
     }
     if (!user) {
-      return res.status(401).jason({ message: info.message ? info.message : info.toString () });
+      return res.status(401).json({ message: info.message ? info.message : info.toString () });
     }
     req.user = user;
     next();
