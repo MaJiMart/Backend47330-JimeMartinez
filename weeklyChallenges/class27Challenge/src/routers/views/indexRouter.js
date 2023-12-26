@@ -3,11 +3,11 @@ import { authenticationMidd, authorizationMidd } from '../../utilities.js';
 
 const router = Router();
 
-router.get('/current', authenticationMidd('jwt'), authorizationMidd(['user', 'seller', 'admin']), (req, res) => {
+router.get('/current', authenticationMidd('jwt'), (req, res) => {
   res.status(200).json(req.user)
 })
 
-router.get('/admin', authenticationMidd('jwt'), authorizationMidd(['admin']), (req, res) => {
+router.get('/admin', authenticationMidd('jwt'), authorizationMidd('admin'), (req, res) => {
   res.status(200).json({ success: true})
 })
 

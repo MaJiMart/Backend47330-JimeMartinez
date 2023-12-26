@@ -1,9 +1,10 @@
 import { Router } from 'express';
 import UserController from '../../controllers/userContoller.js';
+import { authenticationMidd, authorizationMidd } from '../../utilities.js';
 
 const router = Router();
 
-router.get('/users', async (req, res, next) => {
+router.get('/users', authenticationMidd('jwt'), authorizationMidd('admin'), async (req, res, next) => {
   try {
     const users = await UserController.getUsers(req.query);
     res.status(200).json(users);
@@ -12,7 +13,7 @@ router.get('/users', async (req, res, next) => {
   }
 });
 
-router.post('/users', async (req, res, next) => {
+router.post('/users', authenticationMidd('jwt'), authorizationMidd('admin'), async (req, res, next) => {
   try {
     const { body } = req;
     const user = await UserController.create(body);
@@ -22,7 +23,7 @@ router.post('/users', async (req, res, next) => {
   }
 });
 
-router.get('/users/:uid', async (req, res, next) => {
+router.get('/users/:uid', authenticationMidd('jwt'), authorizationMidd('admin'), async (req, res, next) => {
   try {
     const {
       params: { uid },
@@ -34,7 +35,7 @@ router.get('/users/:uid', async (req, res, next) => {
   }
 });
 
-router.put('/users/:uid', async (req, res, next) => {
+router.put('/users/:uid', authenticationMidd('jwt'), authorizationMidd('admin'), async (req, res, next) => {
   try {
     const {
       body,
@@ -47,7 +48,7 @@ router.put('/users/:uid', async (req, res, next) => {
   }
 });
 
-router.delete('/users/:uid', async (req, res, next) => {
+router.delete('/users/:uid', authenticationMidd('jwt'), authorizationMidd('admin'), async (req, res, next) => {
   try {
     const {
       params: { uid },

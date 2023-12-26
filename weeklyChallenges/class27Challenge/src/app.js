@@ -25,7 +25,6 @@ app.use(cookieParser(COOKIE_SECRET));
 initPassport()
 app.use(passport.initialize())
 
-
 app.use('/', indexRouter, registerRouter)
 app.use('/api', productsApiRouter, cartsApiRouter, authApiRouter, usersApiRouter);
 

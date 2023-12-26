@@ -12,15 +12,6 @@
     .catch((error) => {
       console.error('error', error)
     })
-  /* 
-    fetch('/admin')
-    .then((response) => response.json())
-    .then((data) => {
-      console.log('Admin data', data);
-    })
-    .catch((error) => {
-      console.error('error', error)
-    }) */
   })();
 
 document.addEventListener("DOMContentLoaded", function () {

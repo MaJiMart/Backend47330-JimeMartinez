@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import ProductController from '../../controllers/productController.js';
+import { authenticationMidd, authorizationMidd } from '../../utilities.js';
 
 const router = Router();
 
@@ -25,7 +26,7 @@ router.get('/products/:pid', async (req, res, next) => {
   }
 });
 
-router.post('/products', async (req, res, next) => {
+router.post('/products', authenticationMidd('jwt'), authorizationMidd('admin'), async (req, res, next) => {
   try {
     const { body } = req;
     const newProduct = await ProductController.createProduct(body);
@@ -35,7 +36,7 @@ router.post('/products', async (req, res, next) => {
   }
 });
 
-router.put('/products/:pid', async (req, res, next) => {
+router.put('/products/:pid', authenticationMidd('jwt'), authorizationMidd('admin'), async (req, res, next) => {
   try {
     const {
       params: { pid },
@@ -48,7 +49,7 @@ router.put('/products/:pid', async (req, res, next) => {
   }
 });
 
-router.delete('/products/:pid', async (req, res, next) => {
+router.delete('/products/:pid', authenticationMidd('jwt'), authorizationMidd('admin'), async (req, res, next) => {
   try {
     const {
       params: { pid },
