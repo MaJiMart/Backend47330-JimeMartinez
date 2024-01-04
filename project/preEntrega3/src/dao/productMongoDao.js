@@ -2,54 +2,19 @@ import ProductModel from '../models/productModel.js';
 import { NotFound } from '../utilities.js';
 
 export default class ProductsDao {
-  static getProducts(criteria = {}) {
+  getProducts(criteria = {}) {
     return ProductModel.find(criteria);
   }
 
-  static async createProduct(product) {
-    const {
-      title,
-      description,
-      code,
-      price,
-      status,
-      stock,
-      category,
-      thumbnail,
-    } = product;
-
-    const newProduct = new ProductModel({
-      title,
-      description,
-      code,
-      price,
-      status,
-      stock,
-      category,
-      thumbnail,
-    });
-    const createdProduct = await newProduct.save();
-    console.log('Successfully created product');
-    return createdProduct;
+  createProduct(data) {
+    return ProductModel.create(data);
   }
 
-  static async updateProduct(pid, data) {
-    const updatedProduct = await ProductModel.updateOne(
-      { _id: pid },
-      { $set: data }
-    );
-    if (updatedProduct.modifiedCount === 0) {
-      throw new NotFound(`NOT FOUND: Product with ID: ${pid} not found`);
-    }
-    return console.log('Product updated successfully');
+  updateProduct(pid, data){
+    return ProductModel.updateOne({ _id: pid }, { $set: data });
   }
 
-  static async deleteProduct(pid) {
-    const deletedProduct = await ProductModel.deleteOne({ _id: pid });
-
-    if (deletedProduct.deletedCount === 0) {
-      throw new NotFound(`NOT FOUND: Product with ID: ${pid} not found`);
-    }
-    return console.log('Product successfully removed');
+  deleteProduct(pid) {
+    return ProductModel.deleteOne({ _id: pid})
   }
 }

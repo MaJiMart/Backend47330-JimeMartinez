@@ -9,10 +9,9 @@ export default class ProductController {
   static async getProdById(pid) {
     const product = await ProductService.getProducts({ _id: pid });
     if (!product) {
-      throw new NotFound(
-        `NOT FOUND: Product with ID: ${pid} not found`);
+      throw new NotFound(`NOT FOUND: Product with ID: ${pid} not found`);
     }
-    return 
+    return product;
   }
 
   static async createProduct(data) {
@@ -21,26 +20,23 @@ export default class ProductController {
     } catch (error) {
       throw new Exception(`Error creating product: ${error.message}`, 500);
     }
-    
   }
 
   static async updateProduct(pid, data) {
     try {
-      return await ProductService.updateProduct(pid, data);
+      await ProductController.getProdById(pid);
+      await ProductService.updateProduct(pid, data);
     } catch (error) {
-      throw new Exception(
-        `Error updating product: ${error.message}`,
-        500
-      );
+      throw new Exception(`Error updating product: ${error.message}`, 500);
     }
   }
 
   static async deleteProduct(pid) {
     try {
-      return await ProductService.deleteProduct(pid);
+      await ProductController.getProdById(pid);
+      await ProductService.deleteProduct(pid);
     } catch (error) {
       throw new Exception(`Error deleting product: ${error.message}`, 500);
     }
-    
   }
 }

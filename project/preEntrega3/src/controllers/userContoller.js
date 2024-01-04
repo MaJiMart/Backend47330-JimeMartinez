@@ -1,22 +1,21 @@
 import UserService from '../services/userService.js';
-import { NotFound } from '../utilities.js';
+import { NotFound, Exception } from '../utilities.js';
 
 export default class UserController {
-   static async getUsers(query = {}) {
-    /* const filter = {
-      uid: query._id,
-    } */
+  static async getUsers(query = {}) {
     return await UserService.getUsers(query);
   }
 
   static async createUser(data) {
-    const user = await UserService.createUser(data);
-    console.log('Successfully created user');
-    return user;
+    try {
+      return await UserService.createUser(data);
+    } catch (error) {
+      throw new Exception(`Error creating user: ${error.message}`, 500);
+    }
   }
 
   static async getById(uid) {
-    let user = await UserService.getUsers({ _id: uid })
+    let user = await UserService.getUsers({ _id: uid });
     if (!user) {
       throw new NotFound(`The user with id ${uid}was not found`);
     }
@@ -24,14 +23,20 @@ export default class UserController {
   }
 
   static async updateUser(uid, data) {
-    await UserController.getById(uid);
-    await UserService.updateUser(uid, data);
-    console.log('Successfully updated user');
+    try {
+      await UserController.getById(uid);
+      await UserService.updateUser(uid, data);
+    } catch (error) {
+      throw new Exception(`Error updating user: ${error.message}`, 500);
+    }
   }
 
   static async deleteUser(uid) {
-    await UserController.getById(uid);
-    await UserService.deleteUser(uid);
-    console.log('Successfully deleted user');
+    try {
+      await UserController.getById(uid);
+      await UserService.deleteUser(uid);
+    } catch (error) {
+      throw new Exception(`Error deleting user: ${error.message}`, 500);
+    }
   }
 }
