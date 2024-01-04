@@ -1,5 +1,4 @@
 import ProductModel from '../models/productModel.js';
-import { NotFound } from '../utilities.js';
 
 export default class ProductsDao {
   getProducts(criteria = {}) {

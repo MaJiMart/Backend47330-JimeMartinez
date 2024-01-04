@@ -1,21 +1,20 @@
 import CartModel from '../models/cartModel.js';
-import { Exception, NotFound } from '../utilities.js';
+import { NotFound, BadRequest, Exception } from '../utilities.js';
 
 export default class CartsDao {
-  static getCarts(criteria = {}) {
+  getCarts(criteria = {}) {
     return CartModel.find(criteria).populate('products.product');
   }
 
-  static async createCart(data) {
+  createCart(data) {
     return CartModel.create(data);
   }
 
-  static updateCart(cid, data) {
-    const cart = CartModel.updateOne({ _id: cid }, data);
-    return cart
+  updateCart(cid, data) {
+    return CartModel.updateOne({ _id: cid }, { $set: data});
   }
 
-  /* static async updateQuantity(cid, pid, data) {
+  async updateQuantity(cid, pid, data) {
     try {
       const cart = await CartModel.findById(cid);
       if (!cart) {
@@ -44,9 +43,9 @@ export default class CartsDao {
         500
       );
     }
-  } */
+  }
 
-  static async addProductToCart(cid, pid) {
+  async addProductToCart(cid, pid) {
     try {
       const cart = await CartModel.findById(cid);
       if (!cart) {
@@ -69,7 +68,7 @@ export default class CartsDao {
     }
   }
 
-  static async deleteProductToCart(cid, pid) {
+  async deleteProductToCart(cid, pid) {
     try {
       const cart = await CartModel.findById(cid);
       if (!cart) {
@@ -94,7 +93,7 @@ export default class CartsDao {
     }
   }
 
-  static async emptyCart(cid) {
+  async emptyCart(cid) {
     try {
       const cart = await CartModel.findById(cid);
       if (!cart) {

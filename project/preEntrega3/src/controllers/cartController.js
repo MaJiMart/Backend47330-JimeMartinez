@@ -1,36 +1,39 @@
 import CartService from '../services/cartService.js';
-import { NotFound } from '../utilities.js';
+import { NotFound, Exception } from '../utilities.js';
 
 export default class CartController {
   static async getCarts(query = {}) {
-    const carts = await CartService.getCarts(query);
-    return carts;
+    try {
+      const carts = await CartService.getCarts(query);
+      return carts;
+    } catch (error) {
+      throw new Exception(`Error getting carts: ${error.message}`, 500);
+    }
   }
 
   static async createCart(data) {
-    const newCart = await CartService.createCart(data);
-    console.log('Cart created successfully');
-    return newCart;
+    try {
+      return await CartService.createCart(data);
+    } catch (error) {
+      throw new Exception(`Error creating cart: ${error.message}`, 500);
+    }
   }
 
   static async getCart(cid) {
     const cart = await CartService.getCarts({ _id: cid });
     if (!cart) {
-      throw new NotFound(
-        `NOT FOUND: We can't find the cart with ID: ${cid}`);
+      throw new NotFound(`NOT FOUND: We can't find the cart with ID: ${cid}`);
     }
     return cart;
   }
 
   static async updateCart(cid, data) {
-    const cart = await CartService.getCarts({ _id: cid });
-    if (!cart) {
-      throw new NotFound(
-        `NOT FOUND: We can't find the cart with ID: ${cid}`);
+    try {
+      await CartController.getCart(cid);
+      await CartService.updateCart(cid, data);
+    } catch (error) {
+      throw new Exception(`Error updating cart: ${error.message}`, 500);
     }
-    const updateCart = await CartService.updateCart(cid, data);
-    console.log('Cart updated successfully');
-    return updateCart;
   }
 
   static async updateQuantity(cid, pid, data) {
@@ -48,5 +51,4 @@ export default class CartController {
   static async emptyCart(cid) {
     return await CartService.emptyCart(cid);
   }
-
 }
