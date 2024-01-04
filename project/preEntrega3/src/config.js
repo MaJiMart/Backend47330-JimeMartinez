@@ -1,5 +1,6 @@
 export default{
   port: process.env.PORT,
+  persistence: process.env.PERSISTENCE,
   env: process.env.ENV,
   mongodbUri: process.env.MONGODB_URI,
   jwtSecret: process.env.JWT_SECRET,

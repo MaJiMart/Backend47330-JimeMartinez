@@ -18,6 +18,30 @@ export class Exception extends Error {
   }
 }
 
+export class NotFound extends Exception {
+  constructor(message) {
+    super(message, 404);
+  }
+}
+
+export class BadRequest extends Exception {
+  constructor(message) {
+    super(message, 404);
+  }
+}
+
+export class Unauthorized extends Exception {
+  constructor(message) {
+    super(message, 401);
+  }
+}
+
+export class Forbidden extends Exception {
+  constructor(message) {
+    super(message, 403);
+  }
+}
+
 //JWT
 export const JWT_SECRET = config.jwtSecret;
 export const COOKIE_SECRET = config.cookieSecret;

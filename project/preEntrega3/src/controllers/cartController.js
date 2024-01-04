@@ -1,36 +1,32 @@
 import CartService from '../services/cartService.js';
-import { Exception } from '../utilities.js';
+import { NotFound } from '../utilities.js';
 
 export default class CartController {
   static async getCarts(query = {}) {
-    const carts = await CartService.findCarts(query);
+    const carts = await CartService.getCarts(query);
     return carts;
   }
 
   static async createCart(data) {
-    const newCart = await CartService.create(data);
+    const newCart = await CartService.createCart(data);
     console.log('Cart created successfully');
     return newCart;
   }
 
-  static getCart(cid) {
-    const cart = CartService.getById(cid);
+  static async getCart(cid) {
+    const cart = await CartService.getCarts({ _id: cid });
     if (!cart) {
-      throw new Exception(
-        `NOT FOUND: We can't find the cart with ID: ${cid}`,
-        404
-      );
+      throw new NotFound(
+        `NOT FOUND: We can't find the cart with ID: ${cid}`);
     }
     return cart;
   }
 
   static async updateCart(cid, data) {
-    const cart = await CartController.getCart(cid);
+    const cart = await CartService.getCarts({ _id: cid });
     if (!cart) {
-      throw new Exception(
-        `NOT FOUND: We can't find the cart with ID: ${cid}`,
-        404
-      );
+      throw new NotFound(
+        `NOT FOUND: We can't find the cart with ID: ${cid}`);
     }
     const updateCart = await CartService.updateCart(cid, data);
     console.log('Cart updated successfully');
@@ -52,4 +48,5 @@ export default class CartController {
   static async emptyCart(cid) {
     return await CartService.emptyCart(cid);
   }
+
 }

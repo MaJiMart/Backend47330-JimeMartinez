@@ -1,12 +1,8 @@
-import ProductDao from '../dao/productDao.js';
+import ProductDao from '../dao/productMongoDao.js';
 
 export default class ProductService {
   static getProducts(filter = {}) {
     return ProductDao.getProducts(filter);
-  }
-
-  static getProdById(pid) {
-    return ProductDao.getProdById(pid);
   }
 
   static createProduct(payload) {

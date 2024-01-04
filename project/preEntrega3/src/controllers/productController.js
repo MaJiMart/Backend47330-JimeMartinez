@@ -1,5 +1,5 @@
 import ProductService from '../services/productService.js';
-import { Exception } from '../utilities.js';
+import { Exception, NotFound } from '../utilities.js';
 
 export default class ProductController {
   static async getProducts(query = {}) {
@@ -7,12 +7,10 @@ export default class ProductController {
   }
 
   static async getProdById(pid) {
-    const product = await ProductService.getProdById(pid);
+    const product = await ProductService.getProducts({ _id: pid });
     if (!product) {
-      throw new Exception(
-        `NOT FOUND: Product with ID: ${pid} not found`,
-        404
-      );
+      throw new NotFound(
+        `NOT FOUND: Product with ID: ${pid} not found`);
     }
     return 
   }

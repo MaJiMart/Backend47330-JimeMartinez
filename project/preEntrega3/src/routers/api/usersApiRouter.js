@@ -16,7 +16,7 @@ router.get('/users', authenticationMidd('jwt'), authorizationMidd('admin'), asyn
 router.post('/users', authenticationMidd('jwt'), authorizationMidd('admin'), async (req, res, next) => {
   try {
     const { body } = req;
-    const user = await UserController.create(body);
+    const user = await UserController.createUser(body);
     res.status(201).json(user);
   } catch (error) {
     next(error);
@@ -41,7 +41,7 @@ router.put('/users/:uid', authenticationMidd('jwt'), authorizationMidd('admin'),
       body,
       params: { uid },
     } = req;
-    await UserController.updateById(uid, body);
+    await UserController.updateUser(uid, body);
     res.status(204).end();
   } catch (error) {
     next(error);
@@ -53,7 +53,7 @@ router.delete('/users/:uid', authenticationMidd('jwt'), authorizationMidd('admin
     const {
       params: { uid },
     } = req;
-    await UserController.deleteById(uid);
+    await UserController.deleteUser(uid);
     res.status(204).end();
   } catch (error) {
     next(error);

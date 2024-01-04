@@ -1,23 +1,19 @@
 import UserModel from '../models/userModel.js'
 
 export default class UserDao {
-  static getUsers(criteria = {}) {
+  getUsers(criteria = {}) {
     return UserModel.find(criteria);
   }
 
-  static create(data) {
+  createUser(data) {
     return UserModel.create(data);
   }
 
-  static getById(uid) {
-    return UserModel.findById({ _id: uid });
-  }
-
-  static updateById(uid, data) {
+  updateUser(uid, data) {
     return UserModel.updateOne({ _id: uid }, { $set: data });
   }
 
-  static deleteById(uid) {
+  deleteUser(uid) {
     return UserModel.deleteOne({ _id: uid });
   }
 }

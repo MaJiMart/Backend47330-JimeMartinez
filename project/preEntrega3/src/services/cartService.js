@@ -1,18 +1,14 @@
-import CartDao from '../dao/cartDao.js';
+import CartDao from '../dao/cartMongoDao.js';
 
 export default class CartService {
-  static findCarts(filter = {}) {
+  static getCarts(filter = {}) {
     return CartDao.getCarts(filter);
   }
 
-  static async create(payload) {
+  static async createCart(payload) {
     const newCart = await CartDao.createCart(payload);
     console.log(`Successfully created cart (ID: ${newCart._id})`);
     return newCart;
-  }
-
-  static getById(cid) {
-    return CartDao.getCartById(cid);
   }
 
   static updateCart(cid, payload) {
