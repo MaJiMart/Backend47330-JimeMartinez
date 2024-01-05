@@ -1,5 +1,7 @@
 import { Router } from 'express';
+import { authenticationMidd, authorizationMidd } from '../../utilities.js';
 import CartController from '../../controllers/cartController.js';
+import TicketController from '../../controllers/ticketController.js';
 
 const router = Router();
 
@@ -61,7 +63,7 @@ router.put('/carts/:cid/products/:pid', async (req, res, next) => {
   }
 });
 
-router.post('/carts/:cid/products/:pid', async (req, res) => {
+router.post('/carts/:cid/products/:pid', authenticationMidd('jwt'), authorizationMidd('user'),async (req, res, next) => {
   try {
     const {
       params: { cid, pid },
@@ -69,11 +71,11 @@ router.post('/carts/:cid/products/:pid', async (req, res) => {
     await CartController.addProductToCart(cid, pid);
     res.status(200).json({ message: 'Product added to cart successfully' });
   } catch (error) {
-    res.status(error.statusCode || 500).json({ message: error.message });
+    next(res.status(error.statusCode || 500).json({ message: error.message }));
   }
 });
 
-router.delete('/carts/:cid/products/:pid', async (req, res) => {
+router.delete('/carts/:cid/products/:pid', async (req, res, next) => {
   try {
     const {
       params: { cid, pid },
@@ -81,11 +83,11 @@ router.delete('/carts/:cid/products/:pid', async (req, res) => {
     await CartController.deleteProductToCart(cid, pid);
     res.status(200).json({ message: 'Product removed from cart successfully' });
   } catch (error) {
-    res.status(error.statusCode || 500).json({ message: error.message });
+    next(res.status(error.statusCode || 500).json({ message: error.message }));
   }
 });
 
-router.delete('/carts/:cid', async (req, res) => {
+router.delete('/carts/:cid', async (req, res, next) => {
   try {
     const {
       params: { cid },
@@ -93,8 +95,37 @@ router.delete('/carts/:cid', async (req, res) => {
     await CartController.emptyCart(cid);
     res.status(200).json({ message: 'The products have been successfully removed from the cart' });
   } catch (error) {
-    res.status(error.statusCode || 500).json({ message: error.message });
+    next(res.status(error.statusCode || 500).json({ message: error.message }));
   }
 });
+
+router.post('/carts/:cid/purchase'), async (req, res, next) => {
+  try {
+    const { cid } = req.params;
+    const cart = await CartController.getCartById(cid);
+
+    // Verificar stock y generar ticket
+    const result = await TicketController.processPurchase(cart);
+
+    if (result.success) {
+      res.status(200).json({ message: 'Compra realizada con éxito', ticket: result.ticket });
+    } else {
+      res.status(400).json({ message: 'Error en la compra', failedProductIds: result.failedProductIds });
+    }
+  } catch (error) {
+    next(res.status(error.statusCode || 500).json({ message: error.message }))
+  }
+
+  /* try {
+    const {
+      params: { cid },
+      body,
+    } = req;
+    await TicketController.createTicket(cid, body)
+    res.status(201).json({ message: 'Ticket generated successfully' })
+  } catch (error) {
+    next(res.status(error.statusCode || 500).json({ message: error.message }))
+  } */
+}
 
 export default router;

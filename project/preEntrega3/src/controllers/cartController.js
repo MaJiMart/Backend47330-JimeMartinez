@@ -51,4 +51,16 @@ export default class CartController {
   static async emptyCart(cid) {
     return await CartService.emptyCart(cid);
   }
+
+  static async updateCartAfterPurchase(cart, failedProductIds) {
+    const filteredItems = cart.items.filter((item) => !failedProductIds.includes(item.product.toString()));
+
+    const updatedCart = await CartService.updateCart(
+      cart._id,
+      { items: filteredItems },
+      { new: true }
+    );
+
+    return updatedCart;
+  }
 }
