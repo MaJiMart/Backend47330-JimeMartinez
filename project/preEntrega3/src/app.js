@@ -12,6 +12,7 @@ import authApiRouter from './routers/api/authApiRouter.js';
 import usersApiRouter from './routers/api/usersApiRouter.js';
 import productsApiRouter from './routers/api/productsApiRouter.js';
 import cartsApiRouter from './routers/api/cartsApiRouter.js';
+import notificationsApiRouter from './routers/api/notificationsApiRouter.js';
 
 const app = express();
 
@@ -25,7 +26,7 @@ initPassport();
 app.use(passport.initialize());
 
 app.use('/', indexRouter, registerRouter);
-app.use('/api', productsApiRouter, cartsApiRouter, authApiRouter, usersApiRouter);
+app.use('/api', productsApiRouter, cartsApiRouter, authApiRouter, usersApiRouter, notificationsApiRouter);
 
 app.use((error, req, res, next) => {
   if (error instanceof Exception) {

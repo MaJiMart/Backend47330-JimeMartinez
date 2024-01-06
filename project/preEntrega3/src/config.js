@@ -8,4 +8,6 @@ export default{
   githubClientID: process.env.GITHUB_CLIENT_ID,
   githubClientSecret: process.env.GITHUB_CLIENT_SECRET,
   githubCallbackUrl: process.env.GITHUB_CALLBACK_URI,
+  userEmail: process.env.GMAIL_USER,
+  userPass: process.env.GMAIL_PASS,
 }
