@@ -10,4 +10,9 @@ export default{
   githubCallbackUrl: process.env.GITHUB_CALLBACK_URI,
   userEmail: process.env.GMAIL_USER,
   userPass: process.env.GMAIL_PASS,
+  twilio: {
+    accountSID: process.env.TWILIO_ACCOUNT_SID,
+    authToken: process.env.TWILIO_AUTH_TOKEN,
+    phoneNumber: process.env.TWILIO_PHONE_NUMBER,
+  }
 }

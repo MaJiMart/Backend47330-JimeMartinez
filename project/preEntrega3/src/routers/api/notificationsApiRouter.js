@@ -2,6 +2,7 @@ import { Router } from 'express';
 import path from 'path';
 import { __dirname } from '../../utilities.js';
 import MailService from '../../services/mailService.js';
+import TwilioService from '../../services/twilioService.js';
 
 const router = Router();
 
@@ -27,6 +28,16 @@ router.get('/send-email', async (req, res, next) => {
     );
     console.log('result', result);
     res.status(200).json({ message: 'Successful email sending' });
+  } catch (error) {
+    next(res.status(error.statusCode || 500).json({ message: error.message }));
+  }
+});
+
+router.get('/send-sms', async (req, res, next) => {
+  try {
+    const result = await TwilioService.sendSMS('+34652183617', 'Prueba envio SMS');
+    console.log('result', result);
+    res.status(200).json({ message: 'Successful sms sending' });
   } catch (error) {
     next(res.status(error.statusCode || 500).json({ message: error.message }));
   }
