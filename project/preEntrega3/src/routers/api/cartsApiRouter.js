@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { authenticationMidd, authorizationMidd } from '../../utilities.js';
 import CartController from '../../controllers/cartController.js';
-import TicketController from '../../controllers/ticketController.js';
+
 
 const router = Router();
 
@@ -99,8 +99,26 @@ router.delete('/carts/:cid', async (req, res, next) => {
   }
 });
 
-router.post('/carts/:cid/purchase'), async (req, res, next) => {
+router.post('/carts/:cid/purchase', authenticationMidd('jwt'), authorizationMidd('user'), async (req, res, next) => {
   try {
+    const {
+      params: { cid },
+    } = req;
+    
+    await CartController.purchaseCart(cid)
+    res.status(201).json({ message: 'Purchase completed successfully' })
+  } catch (error) {
+    next(res.status(error.statusCode || 500).json({ message: error.message }))
+  }
+})
+
+
+export default router;
+
+
+
+
+/* try {
     const { cid } = req.params;
     const cart = await CartController.getCartById(cid);
 
@@ -114,7 +132,7 @@ router.post('/carts/:cid/purchase'), async (req, res, next) => {
     }
   } catch (error) {
     next(res.status(error.statusCode || 500).json({ message: error.message }))
-  }
+  } */
 
   /* try {
     const {
@@ -126,6 +144,3 @@ router.post('/carts/:cid/purchase'), async (req, res, next) => {
   } catch (error) {
     next(res.status(error.statusCode || 500).json({ message: error.message }))
   } */
-}
-
-export default router;

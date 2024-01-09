@@ -9,7 +9,7 @@ router.get('/users', authenticationMidd('jwt'), authorizationMidd('admin'), asyn
     const users = await UserController.getUsers(req.query);
     res.status(200).json(users);
   } catch (error) {
-    next(error);
+    next(res.status(error.statusCode || 500).json({ message: error.message }));
   }
 });
 
@@ -19,7 +19,7 @@ router.post('/users', authenticationMidd('jwt'), authorizationMidd('admin'), asy
     const user = await UserController.createUser(body);
     res.status(201).json(user);
   } catch (error) {
-    next(error);
+    next(res.status(error.statusCode || 500).json({ message: error.message }));
   }
 });
 

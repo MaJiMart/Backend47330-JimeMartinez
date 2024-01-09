@@ -7,6 +7,10 @@ export default class CartRepository {
     return await this.dao.getCarts(criteria);
   }
 
+  async getCart(cid) {
+    return await this.dao.getCart(cid)
+  }
+
   async createCart(data) {
     return await this.dao.createCart(data);
   }

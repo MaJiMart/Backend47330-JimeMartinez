@@ -7,7 +7,7 @@ export default class ProductController {
   }
 
   static async getProdById(pid) {
-    const product = await ProductService.getProducts({ _id: pid });
+    const product = await ProductService.getProduct(pid);
     if (!product) {
       throw new NotFound(`NOT FOUND: Product with ID: ${pid} not found`);
     }

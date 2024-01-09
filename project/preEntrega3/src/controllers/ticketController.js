@@ -1,4 +1,15 @@
-//import TicketModel from '../models/ticketModel.js';
+import TicketModel from '../models/ticketModel.js';
+
+export default class TicketController {
+  static async createTicket(ticketData) {
+    return TicketModel.create(ticketData)
+  }
+}
+
+
+//----------------------------------------------------------------------//
+
+/* import TicketModel from '../models/ticketModel.js';
 import TicketService from '../services/ticketService.js';
 import CartController from './cartController.js';
 import ProductController from './productController.js';
@@ -54,7 +65,7 @@ function generateUniqueCode() {
     return (c == 'x' ? r : (r & 0x3) | 0x8).toString(4); //(16)
   });
   return id;
-}
+} */
 
 //---------------------------------------------------------------//
 

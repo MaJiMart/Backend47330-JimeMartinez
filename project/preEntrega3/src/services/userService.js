@@ -5,6 +5,10 @@ export default class UserService {
     return userRepository.getUsers(filter);
   }
 
+  static getUser(uid) {
+    return userRepository.getUser(uid)
+  }
+
   static async createUser(payload) {
     const user = await userRepository.createUser(payload);
     console.log('Successfully created user');

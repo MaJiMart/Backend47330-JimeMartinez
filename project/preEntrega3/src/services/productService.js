@@ -5,6 +5,10 @@ export default class ProductService {
     return productRepository.getProducts(filter);
   }
 
+  static getProduct(pid) {
+    return productRepository.getProduct(pid);
+  }
+
   static createProduct(payload) {
     const product = productRepository.createProduct(payload);
     return product

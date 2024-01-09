@@ -11,6 +11,10 @@ export default class UserRepository {
     return users;
   }
 
+  async getUser(uid) {
+    return await this.dao.getUser(uid)
+  }
+
   async createUser(data) {
     return new UserDTO(await this.dao.createUser(data));
   }
