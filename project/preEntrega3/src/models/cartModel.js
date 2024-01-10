@@ -22,22 +22,3 @@ cartSchema
   });
 
 export default mongoose.model('Carts', cartSchema);
-
-/* const cartSchema = new Schema(
-  {
-    user: { type: Schema.Types.ObjectId, ref: 'User' },
-    products: [
-      {
-        product: { type: Schema.Types.ObjectId, ref: 'Product' },
-        quantity: { type: Number, default: 1 },
-      },
-    ],
-  },
-  { timestamps: true, versionKey: false }
-);
-
-cartSchema.pre('find', function(){
-  this.populate('Product')
-})
-
-export default mongoose.model('Carts', cartSchema); */

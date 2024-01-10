@@ -46,8 +46,7 @@ router.post('/auth/login', async (req, res) => {
   res
     .cookie('access_token', token, {
       maxAge: 600000,
-      httpOnly: true,
-      //signed: true,
+      httpOnly: true
     })
     .status(200)
     .json({ status: 'success' });

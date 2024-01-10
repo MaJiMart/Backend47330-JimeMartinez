@@ -55,14 +55,10 @@ export default class CartController {
     return await CartService.emptyCart(cid);
   }
 
-  static async purchaseCart(cid) {
+  static async purchaseCart(cid, user) {
     try {
       const cart = await CartController.getCart(cid);
-      /* const cart = await UserService.getUsers({ cart: cid });
-      console.log('cart', cart); */
-      //const user = await UserService.getUser()
-      /* const user = await UserService.getUsers({ cart: cid });
-      console.log('user:', user); */
+      const userEmailAddress = user;
       const failedProducts = [];
       const purchasedProducts = [];
       let amount = 0;
@@ -70,8 +66,9 @@ export default class CartController {
       for (const cartProduct of cart.products) {
         
         const product = await ProductService.getProduct(cartProduct.product);
-
-        if (product.stock >= cartProduct.quantity) {
+        amount += product.price * cartProduct.quantity;
+        
+        /* if (product.stock >= cartProduct.quantity) {
           product.stock -= cartProduct.quantity;
           await product.save();
 
@@ -84,7 +81,7 @@ export default class CartController {
           console.log(amount);
         } else {
           failedProducts.push(cartProduct.product);
-        }
+        } */
       }
 
       const remainingProducts = cart.products.filter(
@@ -98,9 +95,9 @@ export default class CartController {
       const ticket = await TicketController.createTicket({
         code: generateUniqueCode(),
         amount: amount,
-        purchaser: 'un@mail.com', //req.user.email
+        purchaser: userEmailAddress
       });
-      
+      console.log('Ticket:', ticket);
     } catch (error) {
       throw new Exception(
         `Error processing the purchase: ${error.message}`,
@@ -108,15 +105,4 @@ export default class CartController {
       );
     }
   }
-  /* static async updateCartAfterPurchase(cart, failedProductIds) {
-    const filteredItems = cart.items.filter((item) => !failedProductIds.includes(item.product.toString()));
-
-    const updatedCart = await CartService.updateCart(
-      cart._id,
-      { items: filteredItems },
-      { new: true }
-    );
-
-    return updatedCart;
-  } */
 }

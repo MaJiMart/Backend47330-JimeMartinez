@@ -2,7 +2,6 @@ import { Router } from 'express';
 import { authenticationMidd, authorizationMidd } from '../../utilities.js';
 import CartController from '../../controllers/cartController.js';
 
-
 const router = Router();
 
 router.get('/carts', async (req, res, next) => {
@@ -103,44 +102,14 @@ router.post('/carts/:cid/purchase', authenticationMidd('jwt'), authorizationMidd
   try {
     const {
       params: { cid },
+      user
     } = req;
     
-    await CartController.purchaseCart(cid)
+    await CartController.purchaseCart(cid, user.email)
     res.status(201).json({ message: 'Purchase completed successfully' })
   } catch (error) {
     next(res.status(error.statusCode || 500).json({ message: error.message }))
   }
 })
 
-
 export default router;
-
-
-
-
-/* try {
-    const { cid } = req.params;
-    const cart = await CartController.getCartById(cid);
-
-    // Verificar stock y generar ticket
-    const result = await TicketController.processPurchase(cart);
-
-    if (result.success) {
-      res.status(200).json({ message: 'Compra realizada con éxito', ticket: result.ticket });
-    } else {
-      res.status(400).json({ message: 'Error en la compra', failedProductIds: result.failedProductIds });
-    }
-  } catch (error) {
-    next(res.status(error.statusCode || 500).json({ message: error.message }))
-  } */
-
-  /* try {
-    const {
-      params: { cid },
-      body,
-    } = req;
-    await TicketController.createTicket(cid, body)
-    res.status(201).json({ message: 'Ticket generated successfully' })
-  } catch (error) {
-    next(res.status(error.statusCode || 500).json({ message: error.message }))
-  } */

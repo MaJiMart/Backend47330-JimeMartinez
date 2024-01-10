@@ -88,9 +88,6 @@ export const authorizationMidd = (role) => (req, res, next) => {
   if (!req.user) {
     return res.status(401).json({ message: 'Not authorized' });
   }
-  /* if (roles.includes('user')) {
-    return next();
-  } */
   const { role: userRole } = req.user;
   if (!role.includes(userRole)) {
     return res.status(403).json({ message: 'Forbidden' });
