@@ -5,6 +5,10 @@ export default class CartService {
     return cartRepository.getCarts(filter);
   }
 
+  static getCart(cid) {
+    return cartRepository.getCart(cid)
+  }
+
   static async createCart(payload) {
     const newCart = await cartRepository.createCart(payload);
     console.log(`Successfully created cart (ID: ${newCart._id})`);

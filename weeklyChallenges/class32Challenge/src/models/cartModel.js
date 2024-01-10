@@ -9,11 +9,16 @@ const prodItemSchema = new Schema(
 );
 
 const cartSchema = new Schema(
-  {
-    user: { type: Schema.Types.ObjectId, ref: 'User', required: false },
-    products: { type: [prodItemSchema], default: [] },
-  },
+  { products: { type: [prodItemSchema], default: [] } },
   { timestamps: true, versionKey: false }
 );
+
+cartSchema
+  .pre('find', function () {
+    this.populate('products.productId');
+  })
+  .pre('findById', function () {
+    this.populate('products.productId');
+  });
 
 export default mongoose.model('Carts', cartSchema);

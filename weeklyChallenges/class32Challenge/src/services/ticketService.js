@@ -2,7 +2,7 @@ import TicketDao from '../dao/ticketMongoDao.js';
 
 export default class TicketService {
   static findAll(filter = {}) {
-    return TicketDao.getAll(filter);
+    return TicketDao.get(filter);
   }
 
   static async create(data) {
@@ -20,6 +20,10 @@ export default class TicketService {
   static deleteById(tid) {
     return TicketDao.deleteById(tid);
   }
+
+  /* static findByPurchaser(email) {
+    return TicketDao.findByPurchaser(email)
+  } */
 }
 
 

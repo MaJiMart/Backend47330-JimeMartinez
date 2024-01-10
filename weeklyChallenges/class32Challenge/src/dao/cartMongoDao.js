@@ -3,7 +3,11 @@ import { NotFound, BadRequest, Exception } from '../utilities.js';
 
 export default class CartsDao {
   getCarts(criteria = {}) {
-    return CartModel.find(criteria).populate('products.product');
+    return CartModel.find(criteria)
+  }
+
+  getCart(cid) {
+    return CartModel.findById(cid)
   }
 
   createCart(data) {

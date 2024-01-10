@@ -88,9 +88,6 @@ export const authorizationMidd = (role) => (req, res, next) => {
   if (!req.user) {
     return res.status(401).json({ message: 'Not authorized' });
   }
-  /* if (roles.includes('user')) {
-    return next();
-  } */
   const { role: userRole } = req.user;
   if (!role.includes(userRole)) {
     return res.status(403).json({ message: 'Forbidden' });
@@ -103,3 +100,14 @@ export const createHash = (password) =>
 
 export const isValidPassword = (password, user) =>
   bcrypt.compareSync(password, user.password);
+
+//Generador de código para Ticket
+export function generateUniqueCode() {
+  let d = new Date().getTime();
+  let id = 'xxxxxxxxxx'.replace(/[xy]/g, function (c) {
+    let r = (d + Math.random() * 4) % 4 | 0; //*16) % 16
+    d = Math.floor(d / 4); //16
+    return (c == 'x' ? r : (r & 0x3) | 0x8).toString(4); //(16)
+  });
+  return id;
+}

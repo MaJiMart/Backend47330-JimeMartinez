@@ -15,7 +15,7 @@ export default class UserController {
   }
 
   static async getById(uid) {
-    const user = await UserService.getUsers({ _id: uid });
+    const user = await UserService.getUser(uid);
     if (!user) {
       throw new NotFound(`The user with id ${uid}was not found`);
     }

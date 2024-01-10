@@ -4,7 +4,11 @@ import CartsDao from './cartMongoDao.js';
 
 export default class UserDao {
   getUsers(criteria = {}) {
-    return UserModel.find(criteria);
+    return UserModel.find(criteria)
+  }
+
+  getUser(uid) {
+    return UserModel.findById(uid)
   }
 
   async createUser(data) {

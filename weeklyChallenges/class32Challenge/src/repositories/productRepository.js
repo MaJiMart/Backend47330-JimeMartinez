@@ -10,6 +10,10 @@ export default class ProductRepository{
     return products
   }
 
+  async getProduct(pid) {
+    return await this.dao.getProduct(pid);
+  }
+
   async createProduct(data) {
     return new ProductDTO(await this.dao.createProduct(data))
   }

@@ -1,5 +1,8 @@
 import CartService from '../services/cartService.js';
-import { NotFound, Exception } from '../utilities.js';
+import ProductService from '../services/productService.js';
+import UserService from '../services/userService.js';
+import TicketController from './ticketController.js';
+import { NotFound, Exception, generateUniqueCode } from '../utilities.js';
 
 export default class CartController {
   static async getCarts(query = {}) {
@@ -20,7 +23,7 @@ export default class CartController {
   }
 
   static async getCart(cid) {
-    const cart = await CartService.getCarts({ _id: cid });
+    const cart = await CartService.getCart(cid);
     if (!cart) {
       throw new NotFound(`NOT FOUND: We can't find the cart with ID: ${cid}`);
     }
@@ -52,15 +55,54 @@ export default class CartController {
     return await CartService.emptyCart(cid);
   }
 
-  /* static async updateCartAfterPurchase(cart, failedProductIds) {
-    const filteredItems = cart.items.filter((item) => !failedProductIds.includes(item.product.toString()));
+  static async purchaseCart(cid, user) {
+    try {
+      const cart = await CartController.getCart(cid);
+      const userEmailAddress = user;
+      const failedProducts = [];
+      const purchasedProducts = [];
+      let amount = 0;
 
-    const updatedCart = await CartService.updateCart(
-      cart._id,
-      { items: filteredItems },
-      { new: true }
-    );
+      for (const cartProduct of cart.products) {
+        
+        const product = await ProductService.getProduct(cartProduct.product);
+        amount += product.price * cartProduct.quantity;
+        
+        /* if (product.stock >= cartProduct.quantity) {
+          product.stock -= cartProduct.quantity;
+          await product.save();
 
-    return updatedCart;
-  } */
+          purchasedProducts.push({
+            product: cartProduct.product,
+            quantity: cartProduct.quantity,
+          });
+
+          amount += product.price * cartProduct.quantity;
+          console.log(amount);
+        } else {
+          failedProducts.push(cartProduct.product);
+        } */
+      }
+
+      const remainingProducts = cart.products.filter(
+        (cartProduct) =>
+          !failedProducts.includes(cartProduct.product.toString())
+      );
+
+      cart.products = remainingProducts;
+      await cart.save();
+
+      const ticket = await TicketController.createTicket({
+        code: generateUniqueCode(),
+        amount: amount,
+        purchaser: userEmailAddress
+      });
+      console.log('Ticket:', ticket);
+    } catch (error) {
+      throw new Exception(
+        `Error processing the purchase: ${error.message}`,
+        500
+      );
+    }
+  }
 }
