@@ -13,6 +13,7 @@ import usersApiRouter from './routers/api/usersApiRouter.js';
 import productsApiRouter from './routers/api/productsApiRouter.js';
 import cartsApiRouter from './routers/api/cartsApiRouter.js';
 import notificationsApiRouter from './routers/api/notificationsApiRouter.js';
+import mockprodApiRouter from './moking/mockprodApiRouter.js'
 
 const app = express();
 
@@ -25,7 +26,7 @@ app.use(cookieParser(COOKIE_SECRET));
 initPassport();
 app.use(passport.initialize());
 
-app.use('/', indexRouter, registerRouter);
+app.use('/', indexRouter, registerRouter, mockprodApiRouter);
 app.use('/api', productsApiRouter, cartsApiRouter, authApiRouter, usersApiRouter, notificationsApiRouter);
 
 app.use((error, req, res, next) => {
