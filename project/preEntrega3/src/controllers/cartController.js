@@ -66,6 +66,8 @@ export default class CartController {
       for (const cartProduct of cart.products) {
         
         const product = await ProductService.getProduct(cartProduct.product);
+        product.stock -= cartProduct.quantity;
+        await product.save()
         amount += product.price * cartProduct.quantity;
         
         /* if (product.stock >= cartProduct.quantity) {
