@@ -13,7 +13,8 @@ import usersApiRouter from './routers/api/usersApiRouter.js';
 import productsApiRouter from './routers/api/productsApiRouter.js';
 import cartsApiRouter from './routers/api/cartsApiRouter.js';
 import notificationsApiRouter from './routers/api/notificationsApiRouter.js';
-import mockprodApiRouter from './moking/mockprodApiRouter.js'
+/* Mock */
+import mockprodApiRouter from './mock/mockprodApiRouter.js'
 
 const app = express();
 
