@@ -4,6 +4,7 @@ import cookieParser from 'cookie-parser';
 import passport from 'passport';
 import { initPassport } from './config/passport.config.js';
 import { __dirname, COOKIE_SECRET, Exception } from './utilities.js';
+import errorHandler from './middlewares/errorHandler.js';
 /* Views */
 import indexRouter from './routers/views/indexRouter.js';
 import registerRouter from './routers/views/registerRouter.js';
@@ -30,7 +31,8 @@ app.use(passport.initialize());
 app.use('/', indexRouter, registerRouter, mockprodApiRouter);
 app.use('/api', productsApiRouter, cartsApiRouter, authApiRouter, usersApiRouter, notificationsApiRouter);
 
-app.use((error, req, res, next) => {
+app.use(errorHandler)
+/* app.use((error, req, res, next) => {
   if (error instanceof Exception) {
     res.status(error.status).json({ status: 'error', message: error.message });
   }else{
@@ -38,6 +40,6 @@ app.use((error, req, res, next) => {
   console.log(message);
   res.status(500).json({ status: 'error', message });
   }
-});
+}); */
 
 export default app;

@@ -5,11 +5,11 @@ const router = Router();
 
 router.get('/mockingproducts', async (req, res, next) => {
   try {
-    const products = []
+    const products = [];
     for (let i = 0; i < 100; i++) {
-      products.push (generateProduct())  
+      products.push(generateProduct());
     }
-    res.status(200).json(products)
+    res.status(200).json(products);
   } catch (error) {
     next(error);
   }

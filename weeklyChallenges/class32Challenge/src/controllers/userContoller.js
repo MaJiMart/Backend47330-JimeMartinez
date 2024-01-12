@@ -1,6 +1,7 @@
 import UserService from '../services/userService.js';
 import { NotFound, Exception } from '../utilities.js';
 
+
 export default class UserController {
   static async getUsers(query = {}) {
     return await UserService.getUsers(query);

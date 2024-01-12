@@ -9,11 +9,11 @@ const cartItemSchema = new Schema(
 
 const userSchema = new Schema(
   {
-    first_name: { type: String },
-    last_name: { type: String },
-    email: { type: String, unique: true },
+    first_name: { type: String, require: true },
+    last_name: { type: String, require: true },
+    email: { type: String, unique: true, require: true },
     age: { type: Number },
-    password: { type: String },
+    password: { type: String, require: true },
     cart: {
       type: [cartItemSchema],
       default: [],
