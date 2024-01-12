@@ -46,7 +46,7 @@ router.post(
       );
       res.status(201).json(newProduct);
     } catch (error) {
-      next(/* error */
+      next(
         CustomError.createError({
           name: 'Error creating product',
           cause: prodErrorGenerator({
