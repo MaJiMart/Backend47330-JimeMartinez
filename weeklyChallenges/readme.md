@@ -148,4 +148,68 @@ _❗Para ver el código de cada desafío revisa la carpeta que tiene el mismo no
     <p>passport-local: "^1.0.0"
 </p>
 <p>⚙️ devDependencies:</p>
-    <p>dotenv: "^16.3.1"</P>
+    <p>dotenv: "^16.3.1"
+    
+</P>
+
+## 📌class32Challenge: "Mocking y manejo de errores"
+
+<p>Se aplicará un módulo de mocking y un manejador de errores a tu servidor actual
+</p>
+<p>Aspectos a incluir:</p>
+<p>✔️ Generar un módulo de Mocking para el servidor, con el fin de que, al inicializarse pueda generar y entregar 100 productos con el mismo formato que entregaría una petición de Mongo. Ésto solo debe ocurrir en un endpoint determinado (‘/mockingproducts’).</p>
+<p>✔️ Además, generar un customizador de errores y crear un diccionario para tus errores más comunes al crear un producto, agregarlo al carrito, etc.
+</p>
+<p>⚙️ Dependencies:</p>
+    <p>bcrypt": "^5.1.1", </p>
+    <p>connect-mongo: "^5.1.0", </p>
+    <p>cookie-parser: "^1.4.6", </p>
+    <p>express: "^4.18.2", </p>
+    <p>jsonwebtoken: "^9.0.2", </p>
+    <p>mongoose: "^8.0.4", </p>
+    <p>mongoose-paginate-v2: "^1.8.0", </p>
+    <p>nodemailer: "^6.9.8", </p>
+    <p>passport: "^0.7.0", </p>
+    <p>passport-github2: "^0.1.12", </p>
+    <p>passport-jwt: "^4.0.1", </p>
+    <p>passport-local: "^1.0.0", </p>
+    <p>twilio: "^5.0.0-rc.1"
+</p>
+<p>⚙️ devDependencies:</p>
+    <p>@faker-js/faker: "^8.3.1",</p>
+    <p>dotenv: "^16.3.1"
+    
+</P>
+
+## 📌class34Challenge: "Implementación de logger"
+
+<p>Basado en nuestro proyecto principal, implementar un logger
+</p>
+<p>Aspectos a incluir:</p>
+<p>✔️ Primero, definir un sistema de niveles que tenga la siguiente prioridad (de menor a mayor): debug, http, info, warning, error, fatal</p>
+<p>✔️ Después implementar un logger para desarrollo y un logger para producción, el logger de desarrollo deberá loggear a partir del nivel debug, sólo en consola</p>
+<p>✔️ Sin embargo, el logger del entorno productivo debería loggear sólo a partir de nivel info.</p>
+<p>✔️ Además, el logger deberá enviar en un transporte de archivos a partir del nivel de error en un nombre “errors.log”</p>
+<p>✔️ Agregar logs de valor alto en los puntos importantes de tu servidor (errores, advertencias, etc) y modificar los console.log() habituales que tenemos para que muestren todo a partir de winston.</p>
+<p>✔️ Crear un endpoint /loggerTest que permita probar todos los logs
+</p>
+<p>⚙️ Dependencies:</p>
+    <p>bcrypt": "^5.1.1", </p>
+    <p>connect-mongo: "^5.1.0", </p>
+    <p>cookie-parser: "^1.4.6", </p>
+    <p>express: "^4.18.2", </p>
+    <p>jsonwebtoken: "^9.0.2", </p>
+    <p>mongoose: "^8.0.4", </p>
+    <p>mongoose-paginate-v2: "^1.8.0", </p>
+    <p>nodemailer: "^6.9.8", </p>
+    <p>passport: "^0.7.0", </p>
+    <p>passport-github2: "^0.1.12", </p>
+    <p>passport-jwt: "^4.0.1", </p>
+    <p>passport-local: "^1.0.0", </p>
+    <p>twilio: "^5.0.0-rc.1"
+</p>
+<p>⚙️ devDependencies:</p>
+    <p>@faker-js/faker: "^8.3.1",</p>
+    <p>dotenv: "^16.3.1"
+    
+</P>
