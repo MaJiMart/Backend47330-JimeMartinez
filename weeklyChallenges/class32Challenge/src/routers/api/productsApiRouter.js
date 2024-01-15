@@ -42,7 +42,7 @@ router.post('/products', authenticationMidd('jwt'), authorizationMidd('admin'), 
           code: EnumsErrors.INVALID_TYPE_ERROR
         })
       }
-      const newProduct = await ProductController.createProduct(body);
+      const newProduct = await ProductController.createProduct(req.body);
       res.status(201).json(newProduct);
     } catch (error) {
       next(error);
