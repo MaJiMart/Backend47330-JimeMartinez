@@ -1,9 +1,9 @@
 import { Router } from 'express';
 import ProductController from '../../controllers/productController.js';
 import { authenticationMidd, authorizationMidd } from '../../utilities.js';
-import { CustomError } from '../../utils/customError.js';
-import { prodErrorGenerator } from '../../utils/causeMessageError.js';
-import enumsError from '../../utils/enumsError.js';
+import CustomError from '../../utils/customError.js';
+import EnumsErrors from '../../utils/enumsError.js';
+import { createProdError } from '../../utils/causeMessageError.js';
 
 const router = Router();
 
@@ -29,45 +29,37 @@ router.get('/products/:pid', async (req, res, next) => {
   }
 });
 
-router.post(
-  '/products',
-  authenticationMidd('jwt'),
-  authorizationMidd('admin'),
-  async (req, res, next) => {
+router.post('/products', authenticationMidd('jwt'), authorizationMidd('admin'), async (req, res, next) => {
     try {
       const {
-        body: { title, code, price, stock },
+        body: { title, description, code, price, stock },
       } = req;
-      const newProduct = await ProductController.createProduct(
-        title,
-        code,
-        price,
-        stock
-      );
-      res.status(201).json(newProduct);
-    } catch (error) {
-      next(
+      if (!title||!description||!code||!price||!stock){
         CustomError.createError({
           name: 'Error creating product',
-          cause: prodErrorGenerator({
-            title,
-            code,
-            price,
-            stock,
-          }),
+          cause: createProdError({ title, description, code, price, stock }),
           message: 'An error occurred while trying to create the product',
-          code: enumsError.BAD_REQUEST_ERROR,
+          code: EnumsErrors.INVALID_TYPE_ERROR
         })
-      );
+      }
+      const newProduct = await ProductController.createProduct(body);
+      res.status(201).json(newProduct);
+    } catch (error) {
+      next(error);
     }
   }
 );
+/* router.post('/products', authenticationMidd('jwt'), authorizationMidd('admin'), async (req, res, next) => {
+  try {
+    const { body } = req;
+    const newProduct = await ProductController.createProduct(body);
+    res.status(201).json(newProduct);
+  } catch (error) {
+    next(res.status(error.statusCode || 500).json({ message: error.message }));
+  }
+}); */
 
-router.put(
-  '/products/:pid',
-  authenticationMidd('jwt'),
-  authorizationMidd('admin'),
-  async (req, res, next) => {
+router.put('/products/:pid', authenticationMidd('jwt'), authorizationMidd('admin'), async (req, res, next) => {
     try {
       const {
         params: { pid },
@@ -83,11 +75,7 @@ router.put(
   }
 );
 
-router.delete(
-  '/products/:pid',
-  authenticationMidd('jwt'),
-  authorizationMidd('admin'),
-  async (req, res, next) => {
+router.delete('/products/:pid', authenticationMidd('jwt'), authorizationMidd('admin'), async (req, res, next) => {
     try {
       const {
         params: { pid },
