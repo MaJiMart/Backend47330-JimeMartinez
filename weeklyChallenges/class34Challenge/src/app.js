@@ -5,6 +5,7 @@ import passport from 'passport';
 import { initPassport } from './config/passport.config.js';
 import { __dirname, COOKIE_SECRET, Exception } from './utilities.js';
 import errorHandler from './middlewares/errorHandler.js';
+import { addLogger } from './config/logger.js';
 /* Views */
 import indexRouter from './routers/views/indexRouter.js';
 import registerRouter from './routers/views/registerRouter.js';
@@ -16,9 +17,12 @@ import cartsApiRouter from './routers/api/cartsApiRouter.js';
 import notificationsApiRouter from './routers/api/notificationsApiRouter.js';
 /* Mock */
 import mockprodApiRouter from './mock/mockprodApiRouter.js';
+/* Logger Test*/
+import loggersApiRouter from './routers/api/loggersApiRouter.js';
 
 const app = express();
 
+app.use(addLogger);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '../public')));
@@ -28,11 +32,11 @@ app.use(cookieParser(COOKIE_SECRET));
 initPassport();
 app.use(passport.initialize());
 
-app.use('/', indexRouter, registerRouter, mockprodApiRouter);
+app.use('/', indexRouter, registerRouter, mockprodApiRouter, loggersApiRouter);
 app.use('/api', productsApiRouter, cartsApiRouter, authApiRouter, usersApiRouter, notificationsApiRouter);
 
-app.use(errorHandler)
-/* app.use((error, req, res, next) => {
+/* app.use(errorHandler) */
+app.use((error, req, res, next) => {
   if (error instanceof Exception) {
     res.status(error.status).json({ status: 'error', message: error.message });
   }else{
@@ -40,6 +44,6 @@ app.use(errorHandler)
   console.log(message);
   res.status(500).json({ status: 'error', message });
   }
-}); */
+});
 
 export default app;
