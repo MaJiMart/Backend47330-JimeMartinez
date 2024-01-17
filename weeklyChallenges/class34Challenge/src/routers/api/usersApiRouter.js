@@ -18,6 +18,7 @@ router.post('/users', authenticationMidd('jwt'), authorizationMidd('admin'), asy
   try {
     const { body } = req;
     const user = await UserController.createUser(body);
+    req.logger.info('User created successfully');
     res.status(201).json(user);
   } catch (error) {
     next(res.status(error.statusCode || 500).json({ message: error.message }));
@@ -43,7 +44,8 @@ router.put('/users/:uid', authenticationMidd('jwt'), authorizationMidd('admin'),
       params: { uid },
     } = req;
     await UserController.updateUser(uid, body);
-    res.status(204).end();
+    req.logger.info('User successfully updated');
+    res.status(201).json(`The following items were updated: ${body}`);
   } catch (error) {
     next(error);
   }
@@ -55,6 +57,7 @@ router.delete('/users/:uid', authenticationMidd('jwt'), authorizationMidd('admin
       params: { uid },
     } = req;
     await UserController.deleteUser(uid);
+    req.logger.info('User successfully removed');
     res.status(204).end();
   } catch (error) {
     next(error);

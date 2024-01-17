@@ -10,11 +10,13 @@ router.post('/auth/register', async (req, res) => {
     body: { first_name, last_name, email, password },
   } = req;
   if (!first_name || !last_name || !email || !password) {
-    return res.status(400).json({ message: 'All fields are required' });
+    req.logger.error('All fields are required to successfully register the user')
+    return res.status(400).send({ message: 'All fields are required' });
   }
   let user = await UserModel.findOne({ email });
   if (user) {
-    return res.status(400).json({ message: 'Already registered user' });
+    req.logger.warning('Already registered user');
+    return res.status(400).send({ message: 'Already registered user' });
   }
   user = await UserModel.create({
     first_name,
@@ -24,7 +26,8 @@ router.post('/auth/register', async (req, res) => {
   });
   const cartDao = new CartsDao();
   await cartDao.createCart({ user: user._id });
-  res.status(201).json({ message: 'Successfully registered user' });
+  req.logger.info('Successfully registered user');
+  res.status(201).send({ message: 'Successfully registered user' });
 });
 
 router.post('/auth/login', async (req, res) => {
@@ -32,15 +35,18 @@ router.post('/auth/login', async (req, res) => {
     body: { email, password },
   } = req;
   if (!email || !password) {
-    return res.status(401).json({ message: 'Wrong email or password' });
+    req.logger.error('Wrong email or password');
+    return res.status(401).send({ message: 'Wrong email or password' });
   }
   const user = await UserModel.findOne({ email });
   if (!user) {
-    return res.status(401).json({ message: 'Unregistered user' });
+    req.logger.warning('Unregistered user');
+    return res.status(401).send({ message: 'Unregistered user' });
   }
   const validPass = isValidPassword(password, user);
   if (!validPass) {
-    return res.status(401).json({ message: 'Wrong email or password' });
+    req.logger.error('Wrong email or password');
+    return res.status(401).send({ message: 'Wrong email or password' });
   }
   const token = tokenGenerator(user);
   res

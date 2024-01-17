@@ -56,7 +56,8 @@ router.put('/carts/:cid/products/:pid', async (req, res, next) => {
     } = req;
     const { quantity } = req.body;
     await CartController.updateQuantity(cid, pid, { quantity });
-    res.status(201).json({ message: 'Product quantity successfully updated' });
+    req.logger.info('Product quantity successfully updated');
+    res.status(201).send({ message: 'Product quantity successfully updated' });
   } catch (error) {
     next(res.status(error.statusCode || 500).json({ message: error.message }));
   }
@@ -68,7 +69,8 @@ router.post('/carts/:cid/products/:pid', authenticationMidd('jwt'), authorizatio
       params: { cid, pid },
     } = req;
     await CartController.addProductToCart(cid, pid);
-    res.status(200).json({ message: 'Product added to cart successfully' });
+    req.logger.info('Product added to cart successfully');
+    res.status(200).send({ message: 'Product added to cart successfully' });
   } catch (error) {
     next(res.status(error.statusCode || 500).json({ message: error.message }));
   }
@@ -80,7 +82,8 @@ router.delete('/carts/:cid/products/:pid', async (req, res, next) => {
       params: { cid, pid },
     } = req;
     await CartController.deleteProductToCart(cid, pid);
-    res.status(200).json({ message: 'Product removed from cart successfully' });
+    req.logger.info('Product removed from cart successfully');
+    res.status(200).send({ message: 'Product removed from cart successfully' });
   } catch (error) {
     next(res.status(error.statusCode || 500).json({ message: error.message }));
   }
@@ -92,7 +95,8 @@ router.delete('/carts/:cid', async (req, res, next) => {
       params: { cid },
     } = req;
     await CartController.emptyCart(cid);
-    res.status(200).json({ message: 'The products have been successfully removed from the cart' });
+    req.logger.info('The products have been successfully removed from the cart');
+    res.status(200).send({ message: 'The products have been successfully removed from the cart' });
   } catch (error) {
     next(res.status(error.statusCode || 500).json({ message: error.message }));
   }
@@ -106,7 +110,8 @@ router.post('/carts/:cid/purchase', authenticationMidd('jwt'), authorizationMidd
     } = req;
     
     await CartController.purchaseCart(cid, user.email)
-    res.status(201).json({ message: 'Purchase completed successfully' })
+    req.logger.info('Purchase completed successfully');
+    res.status(201).send({ message: 'Purchase completed successfully' })
   } catch (error) {
     next(res.status(error.statusCode || 500).json({ message: error.message }))
   }
