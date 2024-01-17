@@ -35,6 +35,7 @@ const loggerProd = winston.createLogger({
 });
 
 const loggerDev = winston.createLogger({
+  levels: customLevelOps.levels,
   transports: [
     new winston.transports.Console({
       level: 'debug',
@@ -42,8 +43,8 @@ const loggerDev = winston.createLogger({
         winston.format.colorize({ colors: customLevelOps.colors }),
         winston.format.simple()
       ),
-    })
-  ]
+    }),
+  ],
 });
 
 export const addLogger = (req, res, next) => {
