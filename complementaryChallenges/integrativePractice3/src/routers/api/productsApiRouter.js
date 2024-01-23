@@ -33,6 +33,7 @@ router.post('/products', authenticationMidd('jwt'), authorizationMidd('admin'), 
       } = req;
       if (!title||!description||!code||!price||!stock){
         req.logger.fatal('An error occurred while trying to create the product');
+        return res.status(400).send({ message: 'The fields title, description, code, price and stock are required' });
       }
       const newProduct = await ProductController.createProduct(req.body);
       req.logger.info('Product created successfully');
@@ -42,15 +43,6 @@ router.post('/products', authenticationMidd('jwt'), authorizationMidd('admin'), 
     }
   }
 );
-/* router.post('/products', authenticationMidd('jwt'), authorizationMidd('admin'), async (req, res, next) => {
-  try {
-    const { body } = req;
-    const newProduct = await ProductController.createProduct(body);
-    res.status(201).json(newProduct);
-  } catch (error) {
-    next(res.status(error.statusCode || 500).json({ message: error.message }));
-  }
-}); */
 
 router.put('/products/:pid', authenticationMidd('jwt'), authorizationMidd('admin'), async (req, res, next) => {
     try {
