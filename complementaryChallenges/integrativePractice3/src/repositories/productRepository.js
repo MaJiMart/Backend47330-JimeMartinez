@@ -5,8 +5,8 @@ export default class ProductRepository{
     this.dao = dao;
   }
 
-  async getProducts(criteria = {}) {
-    const products = await this.dao.getProducts(criteria)
+  async getProducts(criteria = {}, opts = {}) {
+    const products = await this.dao.getProducts(criteria, opts)
     return products
   }
 

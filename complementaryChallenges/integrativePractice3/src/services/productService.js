@@ -1,8 +1,8 @@
 import { productRepository } from '../repositories/index.js';
 
 export default class ProductService {
-  static getProducts(filter = {}) {
-    return productRepository.getProducts(filter);
+  static getProducts(filter = {}, opts = {}) {
+    return productRepository.getProducts(filter, opts);
   }
 
   static getProduct(pid) {

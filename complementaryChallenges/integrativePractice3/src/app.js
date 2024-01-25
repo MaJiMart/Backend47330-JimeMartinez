@@ -5,6 +5,7 @@ import passport from 'passport';
 import { initPassport } from './config/passport.config.js';
 import { __dirname, COOKIE_SECRET, Exception } from './utilities.js';
 import { addLogger } from './config/logger.js';
+import { loggerDev } from './config/logger.js';
 /* Views */
 import indexRouter from './routers/views/indexRouter.js';
 import registerRouter from './routers/views/registerRouter.js';
@@ -39,7 +40,7 @@ app.use((error, req, res, next) => {
     res.status(error.status).json({ status: 'error', message: error.message });
   }else{
     const message = `Ups! An unknown error occurred: ${error.message}, sorry`;
-  console.log(message);
+    loggerDev.error(message);
   res.status(500).json({ status: 'error', message });
   }
 });

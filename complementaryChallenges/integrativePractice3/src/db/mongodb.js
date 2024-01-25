@@ -1,5 +1,6 @@
 import config from '../config.js';
 import mongoose from "mongoose";
+import { loggerDev } from '../config/logger.js';
 
 
 export const URI = config.mongodbUri;
@@ -7,8 +8,8 @@ export const URI = config.mongodbUri;
 export const initdb = async () => {
     try {
         await mongoose.connect(URI);
-        console.log('Database connected 🗄️');
+        loggerDev.info('Database connected 🗄️');
     } catch (error) {
-        console.error('Database error connection', error.message);
+        loggerDev.error('Database error connection', error.message);
     }
 };

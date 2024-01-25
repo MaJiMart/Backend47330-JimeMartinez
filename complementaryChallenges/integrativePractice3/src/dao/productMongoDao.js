@@ -1,8 +1,8 @@
 import ProductModel from '../models/productModel.js';
 
 export default class ProductsDao {
-  getProducts(criteria = {}) {
-    return ProductModel.find(criteria);
+  getProducts(criteria = {}, opts = {}) {
+    return ProductModel.find(criteria, opts);
   }
 
   getProduct(pid) {

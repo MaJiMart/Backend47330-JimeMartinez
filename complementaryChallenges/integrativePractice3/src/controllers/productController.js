@@ -3,7 +3,22 @@ import { Exception, NotFound } from '../utilities.js';
 
 export default class ProductController {
   static async getProducts(query = {}) {
-    return await ProductService.getProducts(query);
+    const filter = {};
+    const opts = {
+      page: query.page || 1,
+      limit: query.limit || 10,
+    };
+    if (query.sort) {
+      opts.sort = query.sort;
+    }
+    if (query.status) {
+      filter.status = query.status;
+    }
+    if (query.category) {
+      filter.category = query.category;
+    }
+  
+    return await ProductService.getProducts(filter, opts);
   }
 
   static async getProdById(pid) {

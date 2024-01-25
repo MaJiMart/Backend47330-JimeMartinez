@@ -4,17 +4,18 @@ import config from '../config.js';
 class MailService {
   constructor() {
     this.transporter = nodemailer.createTransport({
-      service: 'gmail',
+      service: config.mail.service,
+      port: config.mail.port,
       auth: {
-        user: config.userEmail,
-        pass: config.userPass,
+        user: config.mail.userEmail,
+        pass: config.mail.userPass,
       },
     })
   }
 
   sendEmail(to, subject, html, attachments = []) {
     return this.transporter.sendMail({
-      from: config.userEmail,
+      from: config.mail.userEmail,
       to,
       subject,
       html,
