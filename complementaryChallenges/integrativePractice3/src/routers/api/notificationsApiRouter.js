@@ -27,7 +27,6 @@ router.get('/send-email', async (req, res, next) => {
         }
       ]
     );
-    console.log('result', result);
     loggerDev.info('Successful email sending');
     res.status(200).send({ message: 'Successful email sending' });
   } catch (error) {
@@ -38,7 +37,6 @@ router.get('/send-email', async (req, res, next) => {
 router.get('/send-sms', async (req, res, next) => {
   try {
     const result = await TwilioService.sendSMS('+34652183617', 'Prueba envio SMS');
-    console.log('result', result);
     loggerDev.info('Successful sms sending');
     res.status(200).send({ message: 'Successful sms sending' });
   } catch (error) {

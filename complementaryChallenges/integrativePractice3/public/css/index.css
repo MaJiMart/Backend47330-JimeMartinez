@@ -68,6 +68,16 @@ p {
     color: gray;
 }
 
+#singUp h3{
+    margin-top: 1.5rem;
+    font-size: 1.5rem;
+}
+
+#singUp a{
+    font-size: 1.5rem;
+    color: palevioletred;
+}
+
 /* Products */
 #filters {
     display: flex;

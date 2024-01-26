@@ -15,6 +15,7 @@ import usersApiRouter from './routers/api/usersApiRouter.js';
 import productsApiRouter from './routers/api/productsApiRouter.js';
 import cartsApiRouter from './routers/api/cartsApiRouter.js';
 import notificationsApiRouter from './routers/api/notificationsApiRouter.js';
+import recoveryPassApiRouter from './routers/api/recoveryPassApiRouter.js';
 /* Mock */
 import mockprodApiRouter from './mock/mockprodApiRouter.js';
 /* Logger Test*/
@@ -33,7 +34,7 @@ initPassport();
 app.use(passport.initialize());
 
 app.use('/', indexRouter, registerRouter, mockprodApiRouter, loggersApiRouter);
-app.use('/api', productsApiRouter, cartsApiRouter, authApiRouter, usersApiRouter, notificationsApiRouter);
+app.use('/api', productsApiRouter, cartsApiRouter, authApiRouter, usersApiRouter, notificationsApiRouter, recoveryPassApiRouter);
 
 app.use((error, req, res, next) => {
   if (error instanceof Exception) {

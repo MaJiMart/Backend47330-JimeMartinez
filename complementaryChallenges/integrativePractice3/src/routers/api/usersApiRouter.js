@@ -1,6 +1,7 @@
 import { Router } from 'express';
-import { authenticationMidd, authorizationMidd } from '../../utilities.js';
-
+import { authenticationMidd, authorizationMidd, createHash } from '../../utilities.js';
+import CartsDao from '../../dao/cartMongoDao.js';
+import UserModel from '../../models/userModel.js';
 import UserController from '../../controllers/userContoller.js';
 
 const router = Router();
@@ -16,16 +17,39 @@ router.get('/users', authenticationMidd('jwt'), authorizationMidd('admin'), asyn
 
 router.post('/users', authenticationMidd('jwt'), authorizationMidd('admin'), async (req, res, next) => {
   try {
-    const { body } = req;
+    /* const { body } = req;
     const user = await UserController.createUser(body);
     req.logger.info('User created successfully');
-    res.status(201).json(user);
+    res.status(201).json(user); */
+    const {
+      body: { first_name, last_name, email, age, password },
+    } = req;
+    if (!first_name || !last_name || !email || !password) {
+      req.logger.error('All fields are required to successfully register the user')
+      return res.status(400).send({ message: 'All fields are required' });
+    }
+    let user = await UserModel.findOne({ email });
+    if (user) {
+      req.logger.warning('Already registered user');
+      return res.status(400).send({ message: 'Already registered user' });
+    }
+    user = await UserController.create({
+      first_name,
+      last_name,
+      email,
+      age, 
+      password: createHash(password),
+    });
+    const cartDao = new CartsDao();
+    await cartDao.createCart({ user: user._id });
+    req.logger.info('Successfully registered user');
+    res.status(201).send({ message: 'Successfully registered user' });
   } catch (error) {
     next(res.status(error.statusCode || 500).json({ message: error.message }));
   }
 });
 
-router.get('/users/:uid', authenticationMidd('jwt'), authorizationMidd('admin'), async (req, res, next) => {
+router.get('/users/:uid', async (req, res, next) => {
   try {
     const {
       params: { uid },

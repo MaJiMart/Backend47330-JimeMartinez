@@ -14,11 +14,12 @@ const userSchema = new Schema(
     email: { type: String, unique: true, require: true },
     age: { type: Number },
     password: { type: String, require: true },
+    resetPasswordToken: { type: String },
     cart: {
       type: [cartItemSchema],
       default: [],
     },
-    role: { type: String, default: 'user', enum: ['user', 'admin'] },
+    role: { type: String, default: 'user', enum: ['user', 'admin', 'premium'] },
     provider: { type: String, default: 'local' },
   },
   { timestamps: true, versionKey: false }
