@@ -17,10 +17,6 @@ router.get('/users', authenticationMidd('jwt'), authorizationMidd('admin'), asyn
 
 router.post('/users', authenticationMidd('jwt'), authorizationMidd('admin'), async (req, res, next) => {
   try {
-    /* const { body } = req;
-    const user = await UserController.createUser(body);
-    req.logger.info('User created successfully');
-    res.status(201).json(user); */
     const {
       body: { first_name, last_name, email, age, password },
     } = req;

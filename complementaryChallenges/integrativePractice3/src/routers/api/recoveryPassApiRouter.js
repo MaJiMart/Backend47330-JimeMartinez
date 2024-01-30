@@ -26,7 +26,7 @@ router.post('/recover-password', async (req, res, next) => {
 
     try {
       await MailService.sendEmail(
-        'majimart.dev@gmail.com', //aquí debería ir user.email
+        user.email,
         'Password recovery',
         `
         <div>
@@ -64,6 +64,12 @@ router.get('/recover-password/:token', async (req, res, next) => {
     if (!user) {
       throw new BadRequest('Invalid or expired reset token');
     }
+
+    const currentTimestamp = Math.floor(Date.now() / 1000);
+
+    if (decodedToken.exp < currentTimestamp) {
+      return res.redirect('http://localhost:8080/recoverPass.html');
+    }
    
     const verifyPass = isValidPassword(newPass, user)
 
@@ -76,6 +82,7 @@ router.get('/recover-password/:token', async (req, res, next) => {
     await user.save();
 
     res.status(200).json({ message: 'Password reset successful' });
+
   } catch (error) {
     next(res.status(error.statusCode || 500).json({ message: error.message }));
   }

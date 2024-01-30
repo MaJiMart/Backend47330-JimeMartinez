@@ -1,24 +1,10 @@
 import ProductService from '../services/productService.js';
 import { Exception, NotFound } from '../utilities.js';
+import UserController from './userContoller.js';
 
 export default class ProductController {
   static async getProducts(query = {}) {
-    const filter = {};
-    const opts = {
-      page: query.page || 1,
-      limit: query.limit || 10,
-    };
-    if (query.sort) {
-      opts.sort = query.sort;
-    }
-    if (query.status) {
-      filter.status = query.status;
-    }
-    if (query.category) {
-      filter.category = query.category;
-    }
-  
-    return await ProductService.getProducts(filter, opts);
+    return await ProductService.getProducts(query);
   }
 
   static async getProdById(pid) {
@@ -37,21 +23,54 @@ export default class ProductController {
     }
   }
 
-  static async updateProduct(pid, data) {
+  static async updateProduct(pid, data, user) {
     try {
-      await ProductController.getProdById(pid);
-      await ProductService.updateProduct(pid, data);
+      const owner = await UserController.getById(user)
+
+      if (owner.role === 'admin') {
+        await ProductController.getProdById(pid);
+        await ProductService.updateProduct(pid, data);
+
+      }else if (owner.role === 'premium') {
+        const product = await ProductController.getProdById(pid);
+        
+        if (product.owner.toString() === owner.id) {
+          await ProductService.updateProduct(pid, data);
+        }else {
+          throw new Exception('You can only modify products registered with your ID.', 403);
+        }
+      } else {
+        throw new Exception('Permission denied. You cant modify products', 403);
+      }
+
+      
     } catch (error) {
       throw new Exception(`Error updating product: ${error.message}`, 500);
     }
   }
 
-  static async deleteProduct(pid) {
+  static async deleteProduct(pid, user) {
     try {
-      await ProductController.getProdById(pid);
-      await ProductService.deleteProduct(pid);
+      const owner = await UserController.getById(user)
+      
+      if (owner.role === 'admin') {
+        await ProductController.getProdById(pid);
+        await ProductService.deleteProduct(pid);
+
+      }else if (owner.role === 'premium') {
+        const product = await ProductController.getProdById(pid);
+        
+        if (product.owner.toString() === owner.id) {
+          await ProductService.deleteProduct(pid);
+        }else {
+          throw new Exception('You can only delete products registered with your ID.', 403);
+        }
+      } else {
+        throw new Exception('Permission denied. You cant delete products', 403);
+      }
     } catch (error) {
       throw new Exception(`Error deleting product: ${error.message}`, 500);
     }
   }
 }
+ 
