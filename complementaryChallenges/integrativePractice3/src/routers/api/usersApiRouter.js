@@ -84,4 +84,26 @@ router.delete('/users/:uid', authenticationMidd('jwt'), authorizationMidd('admin
   }
 });
 
+router.put('/users/premium/:uid', authenticationMidd('jwt'), authorizationMidd(['user', 'premium']), async (req, res, next) => {
+  try {
+    const {
+      params: { uid },
+    } = req;
+
+    const user = await UserController.getById(uid);
+
+    if (user.role === 'user'){
+      await UserController.updateUser(uid, { role: 'premium' })
+    }else {
+      await UserController.updateUser(uid, { role: 'user' })
+    }
+    await user.save()
+  
+    return res.status(200).json({ message: 'Now your have a new role' });
+
+  } catch (error) {
+    next(error);
+  }
+})
+
 export default router;
