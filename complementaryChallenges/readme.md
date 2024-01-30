@@ -66,3 +66,45 @@ _❗Para ver el código de cada desafío revisa la carpeta que tiene el mismo no
     <p>passport-local: "^1.0.0"
     
 </p>
+
+## 📌integrativePractice3: "Proyecto ecommerce"
+
+<br>Consigna:</br>
+<p>Con base en el proyecto que venimos desarrollando, toca solidificar algunos procesos:</p>
+
+<p>✔️ Realizar un sistema de recuperación de contraseña, la cual envíe por medio de un correo un botón que redireccione a una página para restablecer la contraseña (no recuperarla)</p>
+    <p>● link del correo debe expirar después de 1 hora de enviado.</p>
+    <p>● Si se trata de restablecer la contraseña con la misma contraseña del usuario, debe impedirlo e indicarle que no se puede colocar la misma contraseña</p>
+    <p>● Si el link expiró, debe redirigir a una vista que le permita generar nuevamente el correo de restablecimiento, el cual contará con una nueva duración de 1 hora.</p>
+<p>✔️ Establecer un nuevo rol para el schema del usuario llamado “premium” el cual estará habilitado también para crear productos</p>
+<p>✔️ Modificar el schema de producto para contar con un campo “owner”, el cual haga referencia a la persona que creó el producto</p>
+    <p>● Si un producto se crea sin owner, se debe colocar por defecto “admin”.</p>
+    <p>● El campo owner deberá guardar sólo el correo electrónico (o _id, lo dejamos a tu conveniencia) del usuario que lo haya creado (Sólo podrá recibir usuarios premium)</p>
+<p>✔️ Modificar los permisos de modificación y eliminación de productos para que:</p>
+    <p>● Un usuario premium sólo pueda borrar los productos que le pertenecen.</p>
+    <p>● El admin pueda borrar cualquier producto, aún si es de un owner.</p>
+<p>✔️ Además, modificar la lógica de carrito para que un usuario premium NO pueda agregar a su carrito un producto que le pertenece</p>
+<p>✔️ Implementar una nueva ruta en el router de api/users, la cual será /api/users/premium/:uid  la cual permitirá cambiar el rol de un usuario, de “user” a “premium” y viceversa</p>
+
+<p>⚙️ Dependencias:</p>
+    <p>bcrypt: "^5.1.1",</p>
+    <p>connect-mongo: "^5.1.0",</p>
+    <p>cookie-parser: "^1.4.6",</p>
+    <p>express: "^4.18.2",</p>
+    <p>jsonwebtoken: "^9.0.2",</p>
+    <p>mongoose: "^8.0.4",</p>
+    <p>mongoose-paginate-v2: "^1.8.0",</p>
+    <p>nodemailer: "^6.9.8",</p>
+    <p>passport: "^0.7.0",</p>
+    <p>passport-github2: "^0.1.12",</p>
+    <p>passport-jwt: "^4.0.1",</p>
+    <p>passport-local: "^1.0.0",</p>
+    <p>twilio: "^5.0.0-rc.1",</p>
+    <p>winston: "^3.11.0"
+    
+</p>
+<p>⚙️ devDependencies:</p>
+    <p>@faker-js/faker: "^8.3.1",</p>
+    <p>dotenv: "^16.3.1"
+    
+</P>
