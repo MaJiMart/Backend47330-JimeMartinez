@@ -1,6 +1,8 @@
 import CartService from '../services/cartService.js';
 import ProductService from '../services/productService.js';
+import ProductController from '../controllers/productController.js'
 import UserService from '../services/userService.js';
+import UserController from '../controllers/userContoller.js';
 import TicketController from './ticketController.js';
 import { NotFound, Exception, generateUniqueCode } from '../utilities.js';
 
@@ -43,8 +45,25 @@ export default class CartController {
     return await CartService.updateQuantity(cid, pid, data);
   }
 
-  static async addProductToCart(cid, pid) {
-    return await CartService.addProductToCart(cid, pid);
+  static async addProductToCart(cid, pid, uid) {
+    try {
+      const cart = await CartController.getCart(cid);
+      if (!cart) {
+        throw new NotFound(
+          `NOT FOUND: We can't find the cart with ID: ${cid}`);
+      }
+
+      const owner = await UserController.getById(uid) ;
+      const product = await ProductController.getProdById(pid);
+      
+      if (product.owner.toString() === owner.id) {
+        throw new Exception('Sorry, you cant add your own products to the cart', 403)
+      }
+
+      return await CartService.addProductToCart(cid, pid);
+    } catch (error) {
+      throw new Exception(`Error adding product: ${error.message}`, 500);
+    }
   }
 
   static async deleteProductToCart(cid, pid) {

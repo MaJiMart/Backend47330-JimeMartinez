@@ -63,12 +63,13 @@ router.put('/carts/:cid/products/:pid', async (req, res, next) => {
   }
 });
 
-router.post('/carts/:cid/products/:pid', authenticationMidd('jwt'), authorizationMidd('user'),async (req, res, next) => {
+router.post('/carts/:cid/products/:pid', authenticationMidd('jwt'), authorizationMidd(['user', 'premium']),async (req, res, next) => {
   try {
     const {
       params: { cid, pid },
+      user
     } = req;
-    await CartController.addProductToCart(cid, pid);
+    await CartController.addProductToCart(cid, pid, user.id);
     req.logger.info('Product added to cart successfully');
     res.status(200).send({ message: 'Product added to cart successfully' });
   } catch (error) {

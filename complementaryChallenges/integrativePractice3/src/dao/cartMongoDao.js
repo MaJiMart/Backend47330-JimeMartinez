@@ -1,6 +1,7 @@
 import CartModel from '../models/cartModel.js';
 import { NotFound, BadRequest, Exception } from '../utilities.js';
 
+
 export default class CartsDao {
   getCarts(criteria = {}) {
     return CartModel.find(criteria)
@@ -60,13 +61,14 @@ export default class CartsDao {
       const existProduct = cart.products.find(
         (product) => product.product.toString() === pid
       );
+
       if (!existProduct) {
         cart.products.push({ product: pid, quantity: 1 });
       } else {
         existProduct.quantity++;
       }
+
       await cart.save();
-      console.log('Product added to cart successfully');
     } catch (error) {
       throw new Exception(`Error adding product: ${error.message}`, 500);
     }
