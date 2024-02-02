@@ -40,25 +40,18 @@ const swaggerOptions = {
     openapi: '3.0.1',
     info: {
       title: 'Ecommerce API',
-      description: 'Ecommerce Project API Documentation'
+      description: 'Ecommerce Project API Documentation',
     },
   },
-  apis: [path.join(__dirname, './', 'docs', '**', '*.yaml')],
+  apis: [path.join(__dirname, '.', 'docs', '**', '*.yaml')],
 };
+
 const specs = swaggerJsDoc(swaggerOptions);
 
-app.use('api-docs', swaggerUi.serve, swaggerUi.setup(specs));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 
 app.use('/', indexRouter, registerRouter, mockprodApiRouter, loggersApiRouter);
-app.use(
-  '/api',
-  productsApiRouter,
-  cartsApiRouter,
-  authApiRouter,
-  usersApiRouter,
-  notificationsApiRouter,
-  recoveryPassApiRouter
-);
+app.use('/api', productsApiRouter, cartsApiRouter, authApiRouter, usersApiRouter, notificationsApiRouter, recoveryPassApiRouter);
 
 app.use((error, req, res, next) => {
   if (error instanceof Exception) {
