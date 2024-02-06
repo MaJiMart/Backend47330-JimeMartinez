@@ -40,7 +40,7 @@ const swaggerOptions = {
     openapi: '3.0.1',
     info: {
       title: 'Ecommerce API',
-      description: 'Ecommerce Project API Documentation',
+      description: 'Ecommerce Project API Documentation. IMPORTANT Most of these routes require authorization and authentication via token to be used',
     },
   },
   apis: [path.join(__dirname, '.', 'docs', '**', '*.yaml')],

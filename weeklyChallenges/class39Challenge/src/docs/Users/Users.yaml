@@ -154,14 +154,15 @@ components:
           type: string
           description: Password recovery token provided by JWT
         cart:
-          type: Schema.Types.ObjectId
-          description: Array. Reference Cart Schema
+          type: string
+          description: Cart ID
         role:
           type: string
-          description: Role with which the user registers
+          description: Role with which the user registers. User, Premium or Admin
         provider:
           type: string
-          description: Simple description of where the user is obtained
+          description: Simple description of where the user is obtained.
+          
       example:
         _id: 65ba6662a84808f1a4c986ab
         first_name: Juan
@@ -189,6 +190,7 @@ components:
         password:
           type: string
           description: User password.
+
       example:
         first_name: Juan
         last_name: DePrueba
