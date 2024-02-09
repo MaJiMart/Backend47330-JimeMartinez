@@ -26,10 +26,7 @@ router.get('/products/:pid', async (req, res, next) => {
   }
 });
 
-router.post('/products',
-  authenticationMidd('jwt'),
-  authorizationMidd(['admin', 'premium']),
-  async (req, res, next) => {
+router.post('/products', authenticationMidd('jwt'), authorizationMidd(['admin', 'premium']), async (req, res, next) => {
     try {
       const {
         body: { title, description, code, price, stock },
@@ -62,10 +59,7 @@ router.post('/products',
   }
 );
 
-router.put('/products/:pid',
-  authenticationMidd('jwt'),
-  authorizationMidd(['admin', 'premium']),
-  async (req, res, next) => {
+router.put('/products/:pid', authenticationMidd('jwt'), authorizationMidd(['admin', 'premium']), async (req, res, next) => {
     try {
       const {
         params: { pid },

@@ -2,6 +2,7 @@ import express from 'express';
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import passport from 'passport';
+import cors from 'cors';
 import { initPassport } from './config/passport.config.js';
 import { __dirname, COOKIE_SECRET, Exception } from './utilities.js';
 import { addLogger } from './config/logger.js';
@@ -25,6 +26,13 @@ import loggersApiRouter from './routers/api/loggersApiRouter.js';
 
 const app = express();
 
+const corsOpts = {
+  origin: 'http://localhost:5500',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true,
+}
+
+app.use(cors(corsOpts));
 app.use(addLogger);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
