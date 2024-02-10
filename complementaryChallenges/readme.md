@@ -108,3 +108,44 @@ _❗Para ver el código de cada desafío revisa la carpeta que tiene el mismo no
     <p>dotenv: "^16.3.1"
     
 </P>
+
+## 📌integrativePractice3: "Proyecto ecommerce"
+
+<br>Consigna:</br>
+<p>Realizar módulos de testing para tu proyecto principal, utilizando los módulos de mocha + chai + supertest</p>
+
+<br>Aspectos a incluir:</br>
+<p>✔️ Se deben incluir por lo menos 3 tests desarrollados para</p>
+    <p>● Router de products</p>
+    <p>● Router de carts</p>
+    <p>● Router de sessions</p>
+<p>✔️ NO desarrollar únicamente tests de status, la idea es trabajar lo mejor desarrollado posible las validaciones de testing.</p>
+
+<p>⚙️ Dependencias:</p>
+    <p>bcrypt: ^5.1.1,</p>
+    <p>connect-mongo: ^5.1.0,</p>
+    <p>cookie-parser: ^1.4.6,</p>
+    <p>cors: ^2.8.5,</p>
+    <p>express: ^4.18.2,</p>
+    <p>jsonwebtoken: ^9.0.2,</p>
+    <p>mongoose: ^8.0.4,</p>
+    <p>mongoose-paginate-v2: ^1.8.0,</p>
+    <p>nodemailer: ^6.9.8,</p>
+    <p>passport: ^0.7.0,</p>
+    <p>passport-github2: ^0.1.12,</p>
+    <p>passport-jwt: ^4.0.1,</p>
+    <p>passport-local: ^1.0.0,</p>
+    <p>swagger-jsdoc: ^6.2.8,</p>
+    <p>swagger-ui-express: ^5.0.0,</p>
+    <p>twilio: ^5.0.0-rc.1,</p>
+    <p>winston: ^3.11."
+    
+</p>
+<p>⚙️ devDependencies:</p>
+    <p>@faker-js/faker: ^8.3.1,</p>
+    <p>chai: ^5.0.3,</p>
+    <p>dotenv: ^16.3.1,</p>
+    <p>mocha: ^10.2.0,</p>
+    <p>supertest: ^6.3.4
+    
+</p>
