@@ -43,7 +43,7 @@ router.put('/carts/:cid', async (req, res, next) => {
       body,
     } = req;
     await CartController.updateCart(cid, body);
-    res.status(204).end();
+    res.status(201).send({message: 'Cart updated successfully'});
   } catch (error) {
     next(res.status(error.statusCode || 500).json({ message: error.message }));
   }

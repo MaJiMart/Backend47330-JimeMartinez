@@ -3,6 +3,7 @@ export default{
   persistence: process.env.PERSISTENCE || 'mongodb',
   env: process.env.ENV || 'dev',
   mongodbUri: process.env.MONGODB_URI,
+  mongodbTest: process.env.MONGODB_TEST,
   jwtSecret: process.env.JWT_SECRET,
   cookieSecret: process.env.COOKIE_SECRET,
   githubClientID: process.env.GITHUB_CLIENT_ID,

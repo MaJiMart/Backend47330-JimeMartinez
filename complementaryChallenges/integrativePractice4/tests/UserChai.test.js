@@ -1,10 +1,13 @@
 import mongoose from 'mongoose';
 import { expect } from 'chai';
+import config from '../src/config.js';
 import UserDao from '../src/dao/userMongoDao.js';
+
+const dataBaseTest = config.mongodbTest
 
 describe('Tests to the user dao module', function () {
   before(async function () {
-    await mongoose.connect('mongodb+srv://MaJiMart:YJbYiFYE2PehrNj3@cluster0.vxyquai.mongodb.net/tests');
+    await mongoose.connect(dataBaseTest);
     this.userDao = new UserDao();
   });
 

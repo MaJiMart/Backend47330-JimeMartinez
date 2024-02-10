@@ -68,7 +68,7 @@ router.put('/products/:pid', authenticationMidd('jwt'), authorizationMidd(['admi
       } = req;
       await ProductController.updateProduct(pid, body, user.id);
       req.logger.info('Product successfully updated');
-      res.status(201).json(`The following items were updated: ${body}`);
+      res.status(201).send({message: `The following items were updated: ${body}`});
     } catch (error) {
       next(
         res.status(error.statusCode || 500).json({ message: error.message })
