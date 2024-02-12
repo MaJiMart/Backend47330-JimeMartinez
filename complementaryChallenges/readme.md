@@ -109,7 +109,7 @@ _❗Para ver el código de cada desafío revisa la carpeta que tiene el mismo no
     
 </P>
 
-## 📌integrativePractice3: "Proyecto ecommerce"
+## 📌integrativePracticeTesting: "Proyecto ecommerce"
 
 <br>Consigna:</br>
 <p>Realizar módulos de testing para tu proyecto principal, utilizando los módulos de mocha + chai + supertest</p>
