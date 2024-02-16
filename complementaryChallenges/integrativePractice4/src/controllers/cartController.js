@@ -42,7 +42,16 @@ export default class CartController {
   }
 
   static async updateQuantity(cid, pid, data) {
-    return await CartService.updateQuantity(cid, pid, data);
+    try {
+      const product = await ProductController.getProdById(pid);
+      if (product.stock < data.quantity) {
+        throw new Exception('Sorry, the product dont have enough stock', 403)
+      }
+      
+      return await CartService.updateQuantity(cid, pid, data);
+    } catch (error) {
+      throw new Exception(`Error adding product: ${error.message}`, 500);
+    }
   }
 
   static async addProductToCart(cid, pid, uid) {
@@ -55,8 +64,12 @@ export default class CartController {
 
       const owner = await UserController.getById(uid) ;
       const product = await ProductController.getProdById(pid);
+
+      if (product.stock === 0) {
+        throw new Exception('Sorry, the product dont have enough stock', 403)
+      }
       
-      if (product.owner.toString() === owner.id) {
+      if (product.owner === owner.id) {
         throw new Exception('Sorry, you cant add your own products to the cart', 403)
       }
 

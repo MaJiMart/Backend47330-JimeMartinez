@@ -1,5 +1,6 @@
 import { Router } from 'express';
-import { authenticationMidd, authorizationMidd, createHash } from '../../utilities.js';
+import { createHash } from '../../utilities.js';
+import { authenticationMidd, authorizationMidd } from '../../middlewares/authMiddlewares.js'
 import CartsDao from '../../dao/cartMongoDao.js';
 import UserModel from '../../models/userModel.js';
 import UserController from '../../controllers/userContoller.js';
@@ -18,7 +19,7 @@ router.get('/users', authenticationMidd('jwt'), authorizationMidd('admin'), asyn
 router.post('/users', authenticationMidd('jwt'), authorizationMidd('admin'), async (req, res, next) => {
   try {
     const {
-      body: { first_name, last_name, email, age, password },
+      body: { first_name, last_name, email, age, password, role },
     } = req;
     if (!first_name || !last_name || !email || !password) {
       req.logger.error('All fields are required to successfully register the user')
@@ -35,6 +36,7 @@ router.post('/users', authenticationMidd('jwt'), authorizationMidd('admin'), asy
       email,
       age, 
       password: createHash(password),
+      role,
     });
     const cartDao = new CartsDao();
     await cartDao.createCart({ user: user._id });

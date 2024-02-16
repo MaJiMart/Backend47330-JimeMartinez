@@ -7,7 +7,7 @@ const router = Router();
 
 router.post('/auth/register', async (req, res) => {
   const {
-    body: { first_name, last_name, email, password, role },
+    body: { first_name, last_name, email, age, password, role },
   } = req;
   if (!first_name || !last_name || !email || !password) {
     req.logger.error('All fields are required to successfully register the user')
@@ -22,6 +22,7 @@ router.post('/auth/register', async (req, res) => {
     first_name,
     last_name,
     email,
+    age,
     password: createHash(password),
     role,
   });

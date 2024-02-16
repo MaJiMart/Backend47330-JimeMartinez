@@ -2,7 +2,7 @@ import path from 'path';
 import bcrypt from 'bcrypt';
 import passport from 'passport';
 import jwt from 'jsonwebtoken';
-import config from './config.js';
+import config from './config/config.js';
 import { fileURLToPath } from 'url';
 
 //Manejo de rutas
@@ -69,32 +69,7 @@ export const verifyToken = (token) => {
   });
 };
 
-export const authenticationMidd = (strategy) => (req, res, next) => {
-  passport.authenticate(strategy, function (error, user, info) {
-    if (error) {
-      return next(error);
-    }
-    if (!user) {
-      return res
-        .status(401)
-        .json({ message: info.message ? info.message : info.toString() });
-    }
-    req.user = user;
-    next();
-  })(req, res, next);
-};
-
-export const authorizationMidd = (role) => (req, res, next) => {
-  if (!req.user) {
-    return res.status(401).json({ message: 'Not authorized' });
-  }
-  const { role: userRole } = req.user;
-  if (!role.includes(userRole)) {
-    return res.status(403).json({ message: 'Forbidden' });
-  }
-  next();
-};
-
+//Hasheo
 export const createHash = (password) =>
   bcrypt.hashSync(password, bcrypt.genSaltSync(10));
 
@@ -105,9 +80,9 @@ export const isValidPassword = (password, user) =>
 export function generateUniqueCode() {
   let d = new Date().getTime();
   let id = 'xxxxxxxxxx'.replace(/[xy]/g, function (c) {
-    let r = (d + Math.random() * 4) % 4 | 0; //*16) % 16
-    d = Math.floor(d / 4); //16
-    return (c == 'x' ? r : (r & 0x3) | 0x8).toString(4); //(16)
+    let r = (d + Math.random() * 4) % 4 | 0;
+    d = Math.floor(d / 4);
+    return (c == 'x' ? r : (r & 0x3) | 0x8).toString(4);
   });
   return id;
 }

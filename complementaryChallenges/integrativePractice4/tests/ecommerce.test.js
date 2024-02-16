@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 /* import mongoose from 'mongoose'; */
 import supetest from 'supertest';
-import config from '../src/config.js';
+import config from '../src/config/config.js';
 
 /* const dataBaseTest = config.mongodbTest */
 const PORT = config.port; 

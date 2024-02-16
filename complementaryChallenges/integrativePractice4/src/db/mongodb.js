@@ -1,4 +1,4 @@
-import config from '../config.js';
+import config from '../config/config.js';
 import mongoose from "mongoose";
 import { loggerDev } from '../config/logger.js';
 

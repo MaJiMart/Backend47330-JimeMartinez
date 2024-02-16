@@ -1,4 +1,4 @@
-import config from './config.js';
+import config from './config/config.js';
 import app from './app.js';
 import { initdb } from './db/mongodb.js';
 import { loggerDev } from './config/logger.js';

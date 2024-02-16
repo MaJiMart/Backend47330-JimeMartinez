@@ -5,8 +5,7 @@ import passport from 'passport';
 import cors from 'cors';
 import { initPassport } from './config/passport.config.js';
 import { __dirname, COOKIE_SECRET, Exception } from './utilities.js';
-import { addLogger } from './config/logger.js';
-import { loggerDev } from './config/logger.js';
+import { addLogger, loggerDev } from './config/logger.js';
 import swaggerJsDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 /* Views */

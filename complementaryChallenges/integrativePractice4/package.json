@@ -1,12 +1,13 @@
 {
-  "name": "complementarychallenge",
+  "name": "integrativepractice4",
   "version": "1.0.0",
-  "description": "Testing modules for final project",
+  "description": "Desafío complementario 44",
   "main": "src/server.js",
   "type": "module",
   "scripts": {
     "start": "node .",
-    "dev": "nodemon --exec \"node -r dotenv/config\" ."
+    "dev": "nodemon --exec \"node -r dotenv/config\" .",
+    "test": "mocha -r dotenv/config --timeout 10000 --exit ./tests/**.test.js"
   },
   "keywords": [],
   "author": "M. Jimena Martinez",

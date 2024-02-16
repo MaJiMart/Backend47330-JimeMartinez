@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { authenticationMidd, authorizationMidd } from '../../utilities.js';
+import { authenticationMidd, authorizationMidd } from '../../middlewares/authMiddlewares.js';
 import CartController from '../../controllers/cartController.js';
 
 const router = Router();
@@ -53,8 +53,8 @@ router.put('/carts/:cid/products/:pid', async (req, res, next) => {
   try {
     const {
       params: { cid, pid },
+      body: { quantity }, 
     } = req;
-    const { quantity } = req.body;
     await CartController.updateQuantity(cid, pid, { quantity });
     req.logger.info('Product quantity successfully updated');
     res.status(201).send({ message: 'Product quantity successfully updated' });
