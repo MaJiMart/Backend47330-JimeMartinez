@@ -4,7 +4,6 @@ import UserModel from '../../models/userModel.js';
 import config from '../../config/config.js';
 import { NotFound, BadRequest, createHash, isValidPassword } from '../../utilities.js';
 import MailService from '../../services/mailService.js';
-import { loggerDev } from '../../config/logger.js';
 import UserController from '../../controllers/userContoller.js';
 
 const router = Router();
@@ -38,7 +37,7 @@ router.post('/recover-password', async (req, res, next) => {
         </div>
         `
       );
-      loggerDev.info('Successful email sending');
+      req.logger.info('Successful email sending');
       res.status(200).send({ message: 'Successful email sending' });
     } catch (error) {
       next(

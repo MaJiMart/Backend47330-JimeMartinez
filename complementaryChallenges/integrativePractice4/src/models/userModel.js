@@ -7,6 +7,14 @@ const cartItemSchema = new Schema(
   { _id: false }
 );
 
+const docSchema = new Schema(
+  {
+    name: { type: String},
+    reference: { type: String},
+  },
+  { _id: false }
+);
+
 const userSchema = new Schema(
   {
     first_name: { type: String, require: true },
@@ -21,6 +29,11 @@ const userSchema = new Schema(
     },
     role: { type: String, default: 'user', enum: ['user', 'admin', 'premium'] },
     provider: { type: String, default: 'local' },
+    documents: {
+      type: [docSchema],
+      default: [],
+    },
+    last_connection: { type: Date, default: Date.now }
   },
   { timestamps: true, versionKey: false }
 );

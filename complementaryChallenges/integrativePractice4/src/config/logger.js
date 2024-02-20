@@ -1,5 +1,4 @@
 import winston from 'winston';
-import config from './config.js';
 
 const customLevelOps = {
   levels: {
@@ -20,21 +19,7 @@ const customLevelOps = {
   },
 };
 
-const loggerProd = winston.createLogger({
-  levels: customLevelOps.levels,
-  transports: [
-    new winston.transports.Console({
-      level: 'info',
-      format: winston.format.combine(
-        winston.format.colorize({ colors: customLevelOps.colors }),
-        winston.format.simple()
-      ),
-    }),
-    new winston.transports.File({ filename: './error.log', level: 'error' }),
-  ],
-});
-
-export const loggerDev = winston.createLogger({
+export const logger = winston.createLogger({
   levels: customLevelOps.levels,
   transports: [
     new winston.transports.Console({
@@ -44,10 +29,11 @@ export const loggerDev = winston.createLogger({
         winston.format.simple()
       ),
     }),
+    new winston.transports.File({ filename: './records.log', level: 'debug' }),
   ],
 });
 
 export const addLogger = (req, res, next) => {
-  req.logger = config.env === 'prod' ? loggerProd : loggerDev;
+  req.logger = logger;
   next();
-};
+}; 

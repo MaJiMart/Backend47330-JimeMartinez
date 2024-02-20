@@ -1,3 +1,5 @@
+import passport from 'passport';
+
 export const authenticationMidd = (strategy) => (req, res, next) => {
   passport.authenticate(strategy, function (error, user, info) {
     if (error) {

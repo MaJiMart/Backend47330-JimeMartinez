@@ -36,21 +36,31 @@ router.post('/auth/login', async (req, res) => {
   const {
     body: { email, password },
   } = req;
+
   if (!email || !password) {
     req.logger.error('Wrong email or password');
     return res.status(401).send({ message: 'Wrong email or password' });
   }
+
   const user = await UserModel.findOne({ email });
+
   if (!user) {
     req.logger.warning('Unregistered user');
     return res.status(401).send({ message: 'Unregistered user' });
   }
+
   const validPass = isValidPassword(password, user);
+
   if (!validPass) {
     req.logger.error('Wrong email or password');
     return res.status(401).send({ message: 'Wrong email or password' });
   }
+
+  user.last_connection = new Date();
+  await user.save();
+  
   const token = tokenGenerator(user);
+
   res
     .cookie('access_token', token, {
       maxAge: 600000,

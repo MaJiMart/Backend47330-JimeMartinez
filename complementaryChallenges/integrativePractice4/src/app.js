@@ -5,7 +5,7 @@ import passport from 'passport';
 import cors from 'cors';
 import { initPassport } from './config/passport.config.js';
 import { __dirname, COOKIE_SECRET, Exception } from './utilities.js';
-import { addLogger, loggerDev } from './config/logger.js';
+import { addLogger, logger } from './config/logger.js';
 import swaggerJsDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 /* Views */
@@ -25,13 +25,13 @@ import loggersApiRouter from './routers/api/loggersApiRouter.js';
 
 const app = express();
 
-const corsOpts = {
+/* const corsOpts = {
   origin: 'http://localhost:5500',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true,
-}
+} */
 
-app.use(cors(corsOpts));
+/* app.use(cors(corsOpts)); */
 app.use(addLogger);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -65,7 +65,7 @@ app.use((error, req, res, next) => {
     res.status(error.status).json({ status: 'error', message: error.message });
   } else {
     const message = `Ups! An unknown error occurred: ${error.message}, sorry`;
-    loggerDev.error(message);
+    logger.error(message);
     res.status(500).json({ status: 'error', message });
   }
 });

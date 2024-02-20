@@ -1,7 +1,8 @@
 import path from 'path';
 import bcrypt from 'bcrypt';
-import passport from 'passport';
 import jwt from 'jsonwebtoken';
+import multer from 'multer';
+import fs from 'fs';
 import config from './config/config.js';
 import { fileURLToPath } from 'url';
 
@@ -86,3 +87,32 @@ export function generateUniqueCode() {
   });
   return id;
 }
+
+//Multer
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    let folderPath = null;
+    switch (file.fieldname) {
+      case 'profileImg':
+        folderPath = path.join(__dirname, './library/profiles');
+        break;
+      case 'productsImg':
+        folderPath = path.join(__dirname, './library/products');
+        break;
+      case 'documents':
+        folderPath = path.join(__dirname, './library/documents');
+        break;
+      default:
+        folderPath = path.join(__dirname, '../public/library');
+        
+    }
+    fs.mkdirSync(folderPath, { recursive: true });
+    cb(null, folderPath);
+  },
+  filename: (req, file, cb) => {
+    const { user: { id } } = req;
+    cb(null, `${id}-${file.originalname}`);
+  },
+});
+
+export const uploader = multer({ storage });

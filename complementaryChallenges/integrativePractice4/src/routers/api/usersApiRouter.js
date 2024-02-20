@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { createHash } from '../../utilities.js';
+import { createHash, uploader } from '../../utilities.js';
 import { authenticationMidd, authorizationMidd } from '../../middlewares/authMiddlewares.js'
 import CartsDao from '../../dao/cartMongoDao.js';
 import UserModel from '../../models/userModel.js';
@@ -69,7 +69,7 @@ router.put('/users/:uid', authenticationMidd('jwt'), authorizationMidd('admin'),
     req.logger.info('User successfully updated');
     res.status(201).json(`The following items were updated: ${body}`);
   } catch (error) {
-    next(error);
+    next(res.status(error.statusCode || 500).json({ message: error.message }));
   }
 });
 
@@ -82,7 +82,7 @@ router.delete('/users/:uid', authenticationMidd('jwt'), authorizationMidd('admin
     req.logger.info('User successfully removed');
     res.status(204).end();
   } catch (error) {
-    next(error);
+    next(res.status(error.statusCode || 500).json({ message: error.message }));
   }
 });
 
@@ -95,6 +95,13 @@ router.put('/users/premium/:uid', authenticationMidd('jwt'), authorizationMidd([
     const user = await UserController.getById(uid);
 
     if (user.role === 'user'){
+      const requiredDocuments = ['ID', 'addressProof', 'accountStatus']; 
+
+      const userDocumentsSet = new Set(user.documents.map(doc => doc.name));
+
+      if (!requiredDocuments.every(doc => userDocumentsSet.has(doc))) {
+        return res.status(400).json({ message: 'Missing required documents for premium upgrade' });
+      }
       await UserController.updateUser(uid, { role: 'premium' })
     }else {
       await UserController.updateUser(uid, { role: 'user' })
@@ -104,7 +111,31 @@ router.put('/users/premium/:uid', authenticationMidd('jwt'), authorizationMidd([
     return res.status(200).json({ message: 'Now your have a new role' });
 
   } catch (error) {
-    next(error);
+    next(res.status(error.statusCode || 500).json({ message: error.message }));
+  }
+})
+
+router.post('/users/:uid/documents', authenticationMidd('jwt'), uploader.single('documents') , async (req, res, next) => {
+  try {
+    const {
+      params: { uid },
+      file,
+      body: { documentType }
+    } = req;
+
+    const user = await UserController.getById(uid);
+    const upDocs = 
+        {
+          name: documentType,
+          reference: file.filename,
+        };
+      
+        user.documents.push(upDocs)
+        await user.save()
+    
+    return res.status(201).json({ message: 'Documents uploaded successfully' });
+  } catch (error) {
+    next(res.status(error.statusCode || 500).json({ message: error.message }));
   }
 })
 
